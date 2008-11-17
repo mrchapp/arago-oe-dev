@@ -40,10 +40,12 @@ PACKAGE_ARCH_collie = "collie"
 PACKAGE_ARCH_c7x0 = "c7x0"
 PACKAGE_ARCH_hx4700 = "hx4700"
 
+ARM_INSTRUCTION_SET = "ARM"
+
 RCONFLICTS_${PN} = "mplayer-atty"
 RREPLACES_${PN} = "mplayer-atty"
 
-PR = "r9"
+PR = "r12"
 
 PARALLEL_MAKE = ""
 
@@ -119,12 +121,12 @@ EXTRA_OECONF = " \
         --disable-faac \
         --disable-ladspa \
         --disable-libdv \
-        --enable-mad \
+        ${@base_conditional('ENTERPRISE_DISTRO', '1', '--disable-mad', '--enable-mad', d)} \
         --disable-toolame \
         --disable-twolame \
         --disable-xmms \
 	--disable-mp3lib \
-        --enable-libmpeg2 \
+        ${@base_conditional('ENTERPRISE_DISTRO', '1', '--disable-libmpeg2', '--enable-libmpeg2', d)} \
         --disable-musepack \
 	\
         --disable-gl \
