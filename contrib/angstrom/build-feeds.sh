@@ -159,7 +159,8 @@ do
 		      maki \
 		      mc \
 		      meta-nas-server \
-		      midori \
+		      meta-toolchain \
+              midori \
 		      mileage \
 		      mono \
 		      mousepad \
@@ -175,7 +176,8 @@ do
 		      nmm \
 		      notecase \
 		      numptyphysics \
-	          opencv \
+	          octave \
+              opencv \
               opencv-samples \
               openmoko-browser2 \
 		      openredalert \
