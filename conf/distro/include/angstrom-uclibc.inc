@@ -2,7 +2,8 @@
 #fix some iconv issues, needs to be adjusted when doing uclibc builds
 PREFERRED_PROVIDER_virtual/libc = "uclibc"
 PREFERRED_PROVIDER_virtual/libiconv ?= "libiconv"
-PREFERRED_PROVIDER_virtual/libintl ?= "proxy-libintl"
+PREFERRED_PROVIDER_virtual/libintl ?= "gettext"
+PREFERRED_PROVIDER_virtual/libintl_avr32 = "proxy-libintl"
 PREFERRED_PROVIDER_virtual/${TARGET_PREFIX}libc-for-gcc = "uclibc"
 PREFERRED_PROVIDER_virtual/arm-angstrom-linux-uclibcgnueabi-libc-for-gcc    = "uclibc-initial"
 PREFERRED_PROVIDER_virtual/armeb-angstrom-linux-uclibcgnueabi-libc-for-gcc  = "uclibc-initial"
@@ -32,7 +33,7 @@ BUILD_OPTIMIZATION = "-Os"
 #Note that this testing was done without the gcc-pr32889.patch.
 FULL_OPTIMIZATION_avr32 = "-Os -fomit-frame-pointer"
 
-TARGET_LINK_HASH_STYLE = "-Wl,--hash-style=gnu"
+TARGET_LINK_HASH_STYLE = "${@['-Wl,--hash-style=gnu',''][bb.data.getVar('TARGET_ARCH',d,1) in ['mips', 'mipsel']]}"
 
 CXXFLAGS += "-fvisibility-inlines-hidden"
 
