@@ -40,6 +40,10 @@ do_configure_prepend() {
                 sed -i -e s,CONFIG_DEBUG_S3C_UART=2,CONFIG_DEBUG_S3C_UART=0, ${WORKDIR}/defconfig
                 echo "done"
         fi
+        if [ ${MACHINE} == "om-gta02" ]; then
+                echo -n "fixing up configuration for Openmoko GTA02..."
+                echo "done"
+        fi                                                                       
 }
 
 # symlink the latest uImage (should go to linux.inc IMO)
