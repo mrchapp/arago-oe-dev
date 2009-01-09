@@ -3,7 +3,7 @@
 #------------------------------------------------------
 
 PV = "1.1"
-PR = "r0"
+PR = "r2"
 
 # no languages for now
 IMAGE_LINGUAS = ""
@@ -80,7 +80,7 @@ ZHONE_INSTALL = "\
 
 # additional apps
 APPS_INSTALL = "\
-  tichy \
+#  tichy \
   gpe-gallery \
   gpe-sketchbook \
   gpe-filemanager \
@@ -128,9 +128,14 @@ fso_rootfs_postprocess() {
     echo 'gtk-icon-theme-name = "Tango"' >> ./etc/gtk-2.0/gtkrc
     # fix strange iconv/gconf bug
     ln -s libc.so.6 ./lib/libc.so
-    # set sensible DNS entries
+    # set sensible default DNS entries
     echo "nameserver 208.67.222.222" > ./etc/resolv.conf
     echo "nameserver 208.67.220.220" >> ./etc/resolv.conf
+    # remove autostart of gspd (if installed), we have fso-gpsd and this conflicts
+    rm -f ./etc/init.d/gpsd
+    # silence printk
+    echo "echo 0 0 0 0 >/proc/sys/kernel/printk" >./etc/profile.d/printk.sh
+    chmod a+rx ./etc/profile.d/printk.sh
     # back on track
     cd $curdir
 }
