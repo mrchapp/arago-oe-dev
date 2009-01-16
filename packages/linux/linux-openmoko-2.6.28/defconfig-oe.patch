@@ -1,7 +1,5 @@
-Index: defconfig-oe
-===================================================================
---- defconfig-oe	2008-12-31 18:54:08.000000000 +0100
-+++ defconfig-oe	2008-12-20 22:24:39.000000000 +0100
+--- gta02-packaging-defconfig	2009-01-12 13:09:33.000000000 +0000
++++ defconfig-oe	2009-01-12 13:18:23.000000000 +0000
 @@ -337,9 +337,6 @@
  #
  # At least one emulation must be selected
@@ -12,7 +10,7 @@ Index: defconfig-oe
  
  #
  # Userspace binary formats
-@@ -1640,9 +1635,10 @@
+@@ -1634,9 +1631,10 @@
  #
  CONFIG_LEDS_TRIGGERS=y
  CONFIG_LEDS_TRIGGER_TIMER=y
@@ -24,16 +22,16 @@ Index: defconfig-oe
  CONFIG_RTC_LIB=y
  CONFIG_RTC_CLASS=y
  CONFIG_RTC_HCTOSYS=y
-@@ -1827,7 +1823,11 @@
+@@ -1822,7 +1820,11 @@
  # CONFIG_SYSV_FS is not set
  # CONFIG_UFS_FS is not set
  CONFIG_NETWORK_FILESYSTEMS=y
 -# CONFIG_NFS_FS is not set
-+CONFIG_NFS_FS=y
++CONFIG_NFS_FS=m
 +CONFIG_NFS_V3=y
 +CONFIG_NFS_V3_ACL=y
 +# CONFIG_NFS_V4 is not set
 +CONFIG_ROOT_NFS=y
- CONFIG_NFSD=y
+ CONFIG_NFSD=m
  CONFIG_NFSD_V2_ACL=y
  CONFIG_NFSD_V3=y
