@@ -81,11 +81,13 @@ do
                       bluez-hcidump \
                       boa \
                       camera-assistant \
+                      cdparanoia \
                       checkers \
                       cherokee \
                       claws-mail \
                       contacts \
                       cvs \
+                      cwiid \
                       dates \
                       distcc \
                       dsniff \
@@ -166,6 +168,7 @@ do
                       iperf \
                       iptables \
                       irssi \
+                      iscsi-target \
                       jamvm \
                       kismet \
                       konqueror-embedded \
@@ -275,6 +278,7 @@ do
                       timesleuth \
                       tofrodos \
                       totem \
+                      transmission \
                       tron \
                       tzdata \
                       ubahnnav \

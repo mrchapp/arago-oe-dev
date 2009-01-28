@@ -175,11 +175,11 @@ pkg_prerm_${PN} () {
 	done </etc/busybox.links
 }
 
-PACKAGES =+ "mdev"
-FILES_mdev = "${sysconfdir}/mdev ${sysconfdir}/mdev.conf ${sysconfdir}/init.d/mdev"
-RDEPENDS_mdev += "${PN}"
+PACKAGES =+ "${PN}-mdev"
+FILES_${PN}-mdev = "${sysconfdir}/mdev ${sysconfdir}/mdev.conf ${sysconfdir}/init.d/mdev"
+RDEPENDS_${PN}-mdev += "${PN}"
 
-pkg_postinst_mdev() {
+pkg_postinst_${PN}-mdev() {
 if test "x$D" != "x"; then
 	OPT="-r $D"
 else
