@@ -3,7 +3,7 @@ require linux.inc
 DESCRIPTION = "Linux kernel for OMAP processors"
 KERNEL_IMAGETYPE = "uImage"
 
-COMPATIBLE_MACHINE = "omap5912osk|omap1710h3|omap2430sdp|omap2420h4|beagleboard|omap3evm|omap3-pandora"
+COMPATIBLE_MACHINE = "omap5912osk|omap1710h3|omap2430sdp|omap2420h4|beagleboard|omap3evm|omap3-pandora|overo"
 
 DEFAULT_PREFERENCE = "-1"
 DEFAULT_PREFERENCE_beagleboard = "1"
@@ -11,7 +11,7 @@ DEFAULT_PREFERENCE_beagleboard = "1"
 SRCREV = "79d042a081d3e467c735bb0d9569ed6296f85a3c"
 
 PV = "2.6.28"
-PR = "r11"
+PR = "r12"
 
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/tmlind/linux-omap-2.6.git;branch=omap-2.6.28;protocol=git \
 	   file://defconfig"

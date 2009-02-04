@@ -80,11 +80,14 @@ do
                       bluez-gnome \
                       bluez-hcidump \
                       boa \
+                      bonjour \
                       camera-assistant \
                       cdparanoia \
                       checkers \
                       cherokee \
                       claws-mail \
+                      connman \
+                      connman-gnome \
                       contacts \
                       cvs \
                       cwiid \
@@ -173,9 +176,11 @@ do
                       kismet \
                       konqueror-embedded \
                       labyrinth \
+                      lcd4linux \
                       leafpad \
                       lighttpd \
                       links-x11 \
+                      lirc \
                       m4 \
                       madplay \
                       mahjongg \
@@ -349,3 +354,10 @@ do
         do_build
 done
 
+for machine in collie h2200 hx4700 spitz akita tosa poodle c7x0
+do
+        BUILD_MACHINE=$machine
+        BUILD_TARGETS="linux-kexecboot \
+		       "
+	do_build
+done	

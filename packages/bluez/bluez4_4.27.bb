@@ -1,13 +1,14 @@
 DESCRIPTION = "Linux Bluetooth Stack Userland V4"
 SECTION = "libs"
 PRIORITY = "optional"
-DEPENDS = "gst-plugins-base alsa-lib libusb1 dbus-glib"
+DEPENDS = "gst-plugins-base alsa-lib libusb-compat libusb1 dbus-glib"
 HOMEPAGE = "http://www.bluez.org"
 LICENSE = "GPL"
-PR = "r1"
+PR = "r2"
 
 SRC_URI = "\
   http://www.kernel.org/pub/linux/bluetooth/bluez-${PV}.tar.gz \
+  file://fix-dfutool-usb-declaration-mismatch.patch;patch=1 \
   file://sbc-thumb.patch;patch=1 \
   file://hid2hci_usb_init.patch;patch=1 \
 "    
