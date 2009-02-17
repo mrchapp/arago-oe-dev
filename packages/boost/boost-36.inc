@@ -9,8 +9,9 @@ SECTION = "libs"
 DEPENDS = "boost-jam-native zlib"
 PRIORITY = "optional"
 LICENSE = "Boost Software License"
-PR = "r1"
+PR = "r3"
 
+ARM_INSTRUCTION_SET = "arm"
 BOOST_VER = "${@"_".join(bb.data.getVar("PV",d,1).split("."))}"
 BOOST_MAJ = "${@"_".join(bb.data.getVar("PV",d,1).split(".")[0:2])}"
 BOOST_P = "boost_${BOOST_VER}"
@@ -69,6 +70,9 @@ FILES_${PN}-dev = "${includedir} ${libdir}/libboost_*.so ${libdir}/libboost_*.a"
 # "boost" is a metapackage which pulls in all boost librabries
 PACKAGES += "${PN}"
 RRECOMMENDS_${PN} += "${BOOST_PACKAGES}"
+
+# to avoid GNU_HASH QA errors added LDFLAGS to ARCH; a little bit dirty but at least it works
+TARGET_CC_ARCH += " ${LDFLAGS}" 
 
 # Oh yippee, a new build system, it's sooo cooool I could eat my own
 # foot.  inlining=on lets the compiler choose, I think.  At least this
