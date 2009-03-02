@@ -83,12 +83,14 @@ do
                       bonjour \
                       camera-assistant \
                       cdparanoia \
+                      cdstatus \
                       checkers \
                       cherokee \
                       claws-mail \
                       connman \
                       connman-gnome \
                       contacts \
+                      cron \
                       cvs \
                       cwiid \
                       dates \
@@ -136,6 +138,7 @@ do
                       gimp \
                       glider \
                       gmp \
+                      gmpc \
                       gnome-games \
                       gnome-mplayer \
                       gnome-panel \
@@ -172,6 +175,7 @@ do
                       iptables \
                       irssi \
                       iscsi-target \
+                      ivman \
                       jamvm \
                       kismet \
                       konqueror-embedded \
@@ -232,6 +236,7 @@ do
                       pipeman \
                       pkgconfig \
                       places \
+                      pmount \
                       pocketcellar \
                       povray \
                       prboom \
