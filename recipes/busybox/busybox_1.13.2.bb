@@ -1,13 +1,13 @@
 require busybox.inc
-PR = "r16"
+PR = "r17"
 
 SRC_URI = "\
   http://www.busybox.net/downloads/busybox-${PV}.tar.gz \
-  http://busybox.net/downloads/fixes-1.13.2/busybox-1.13.2-depmod.patch;patch=1 \
-  http://busybox.net/downloads/fixes-1.13.2/busybox-1.13.2-init.patch;patch=1 \
-  http://busybox.net/downloads/fixes-1.13.2/busybox-1.13.2-mdev.patch;patch=1 \
-  http://busybox.net/downloads/fixes-1.13.2/busybox-1.13.2-modprobe.patch;patch=1 \
-  http://busybox.net/downloads/fixes-1.13.2/busybox-1.13.2-tar.patch;patch=1 \
+  file://busybox-1.13.2-depmod.patch;patch=1 \
+  file://busybox-1.13.2-init.patch;patch=1 \
+  file://busybox-1.13.2-mdev.patch;patch=1 \
+  file://busybox-1.13.2-modprobe.patch;patch=1 \
+  file://busybox-1.13.2-tar.patch;patch=1 \
   \
   file://udhcpscript.patch;patch=1 \
   file://udhcpc-fix-nfsroot.patch;patch=1 \

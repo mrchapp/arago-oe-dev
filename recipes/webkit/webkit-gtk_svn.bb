@@ -1,11 +1,9 @@
 DESCRIPTION = "WebKit browser engine, GTK+ edition"
-DEPENDS = "libsoup-2.4 curl icu libxml2 cairo libxslt libxt libidn gnutls gtk+ gstreamer gst-plugins-base gnome-vfs bison-native flex-native gperf-native perl-native sqlite3"
+DEPENDS = "gnome-keyring libsoup-2.4 curl icu libxml2 cairo libxslt libxt libidn gnutls gtk+ gstreamer gst-plugins-base gnome-vfs bison-native flex-native gperf-native perl-native sqlite3"
 
 SRCREV_FORMAT = "webcore-rwebkit"
 
-# Yes, this is wrong...
-PV = "0.1+svnr${SRCREV}"
-PR = "r8"
+PV = "1.1.3+svnr${SRCREV}"
 
 SRC_URI = "\
   svn://svn.webkit.org/repository/webkit/trunk/;module=JavaScriptCore;proto=http \
