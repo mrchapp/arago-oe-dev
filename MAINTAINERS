@@ -145,12 +145,12 @@ Interests:  wifi, kernels, emulation, qemu, git
 Recipes:    linux-jlime*, scummvm, blackbox
 
 Person:     Leon Woestenberg
-Mail:       leonw@mailcan.com
+Mail:       leon@sidebranch.com
 Website:    http://www.sidebranch.com/
-Interests:  Real-time embedded Linux for highly available applications.
+Interests:  Real-time and/or embedded Linux for industrial applications.
 Interests:  Small read-only Linux based firmware, deterministic builds.
-Recipes:    lighttpd, fastcgi
-Machines:   mpc8313e-rdb, efika, ixp4xxbe, x86, davinci-dvevm
+Recipes:    lighttpd, fastcgi, squashfs-tools, rt-tests, linux-rt, linux
+Machines:   mpc8313e-rdb, mpc8315e-rdb, efika, ixp4xxbe, x86, canyonlands
 
 Person:	    Liam Girdwoord
 Mail:       liam.girdwood@wolfsonmicro.com
@@ -162,6 +162,13 @@ Mail:       marcin@juszkiewicz.com.pl
 Website:    http://marcin.juszkiewicz.com.pl/
 Machines:   progear, alix, at91sam9263ek
 Distros:    Poky, Ångström
+
+Person:     Marco Cavallini
+Mail:       m.cavallini@koansoftware.com
+Website:    http://www.koansoftware.com - http://www.embedded.it
+Machines:   ronetix-pm9263, vortex86sx, at91sam9g20ek
+Distros:    KaeilOS, Ångström
+Interests:  x86, ARM, wxWidgets
 
 Person:     Matthias 'CoreDump' Hentges
 Website:    http://www.hentges.net

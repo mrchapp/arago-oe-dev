@@ -1,7 +1,7 @@
 DESCRIPTION = "Evas is the Enlightenment canvas API"
 LICENSE = "MIT BSD"
 # can also depend on valgrind, libsdl-x11, directfb
-DEPENDS = "eina eet freetype jpeg libpng virtual/libx11 libxext libxrender fontconfig"
+DEPENDS = "eina eet freetype jpeg libpng virtual/libx11 libxext libxrender fontconfig libfribidi"
 PV = "0.9.9.050+svnr${SRCREV}"
 PR = "r1"
 
@@ -20,7 +20,7 @@ python populate_packages_prepend () {
             basedir = bb.data.expand( '${libdir}/evas/modules/%s' % plugin_type, d )
 
             do_split_packages(d, basedir, '^(.*)',
-            output_pattern = 'evas-' + plugin_type[:-1] + "-%s",
+            output_pattern = 'libevas-' + plugin_type[:-1] + "-%s",
             description = 'Evas module %s',
             allow_dirs=True, recursive=False, extra_depends="" )
 }

@@ -3,12 +3,11 @@ require psplash-ua.inc
 
 ALTERNATIVE_PRIORITY = "10"
 
-PR = "r19"
-
 SRC_URI = "svn://svn.o-hand.com/repos/misc/trunk;module=psplash;proto=http \
           file://psplash-hand-img.h \
           file://psplash-bar-img.h \
           file://psplash-default \
+          file://splashfuncs \
           file://psplash-init"
 S = "${WORKDIR}/psplash"
 

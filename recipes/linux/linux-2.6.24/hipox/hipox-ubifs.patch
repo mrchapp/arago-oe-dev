@@ -1,0 +1,10 @@
+--- ubifs-v2.6.24/drivers/mtd/ubi/gluebi.c	2009-04-07 17:14:47.000000000 +0200
++++ linux-2.6.24/drivers/mtd/ubi/gluebi.c	2009-04-24 13:08:55.000000000 +0200
+@@ -28,7 +28,6 @@
+  * eraseblock size is equivalent to the logical eraseblock size of the volume.
+  */
+ 
+-#include <linux/math64.h>
+ #include "ubi.h"
+ 
+ /**
