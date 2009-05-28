@@ -91,6 +91,8 @@ SRC_URI_append = " \
            file://dss2/0067-DSS2-VRFB-don-t-WARN-when-releasing-inactive-ctx.patch;patch=1 \
            file://dss2/0068-DSS2-Swap-field-offset-values-w-VRFB-rotation.patch;patch=1 \
            file://dss2/0069-DSS2-OMAP3EVM-Added-DSI-powerup-and-powerdown-func.patch;patch=1 \
+           file://dss2/0070-DSS2-fix-irq1.diff;patch=1 \
+           file://dss2/0071-DSS2-fix-irq2.diff;patch=1 \
            file://0001-board-ldp-add-regulator-info-to-get-the-microSD-slo.patch;patch=1 \
            file://fix-unaligned-access.diff;patch=1 \
            file://make-alignment-visible.diff;patch=1 \
@@ -154,6 +156,7 @@ SRC_URI_append = " \
 #           file://isp/standalone/0002-Resizer-bug-fixes-on-top-of-1.0.2-release.patch;patch=1 \
            file://0124-leds-gpio-broken-with-current-git.patch;patch=1 \
            file://modedb-hd720.patch;patch=1 \
+           file://0001-implement-TIF_RESTORE_SIGMASK-support-and-enable-the.patch;patch=1 \
 "
 
 
