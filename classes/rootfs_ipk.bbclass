@@ -64,9 +64,8 @@ fakeroot rootfs_ipk_do_rootfs () {
 	export IPKG_OFFLINE_ROOT=${IMAGE_ROOTFS}
 	export OPKG_OFFLINE_ROOT=${IPKG_OFFLINE_ROOT}
 	
-	mkdir -p ${IMAGE_ROOTFS}${sysconfdir}/opkg/
-
 	if [ "${ONLINE_PACKAGE_MANAGEMENT}" != "none" ]; then
+        	mkdir -p ${IMAGE_ROOTFS}${sysconfdir}/opkg/
 		grep "^arch" ${IPKGCONF_TARGET} >${IMAGE_ROOTFS}${sysconfdir}/opkg/arch.conf
 	fi
 
@@ -97,6 +96,7 @@ fakeroot rootfs_ipk_do_rootfs () {
 		ln -s opkg ${IMAGE_ROOTFS}${libdir}/ipkg
 	else
 		rm -rf ${IMAGE_ROOTFS}${libdir}/opkg
+		rm -rf ${IMAGE_ROOTFS}/usr/lib/opkg
 	fi
 	
 	${ROOTFS_POSTPROCESS_COMMAND}

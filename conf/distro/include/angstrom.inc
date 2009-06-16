@@ -7,6 +7,8 @@ USERDISTRO := "${DISTRO}"
 DISTRO = "angstrom"
 DISTRO_NAME = "Angstrom"
 
+BUILDNAME = "Angstrom ${DISTRO_VERSION}"
+
 TARGET_VENDOR = "-angstrom"
 
 # Add FEED_ARCH to overrides
@@ -54,7 +56,7 @@ THUMB_INTERWORK = "yes"
 #Use this variable in feeds and other parts that need a URI
 ANGSTROM_URI ?= "http://www.angstrom-distribution.org"
 
-#Use this variable to select which recipe you want to use to get feed configs (/etc/ipkg/*, /etc/apt/sources.list)
+#Use this variable to select which recipe you want to use to get feed configs (/etc/ipkg/, /etc/apt/sources.list)
 # usefull for derivative distros and local testing
 # As this is runtime we can't and won't use virtual/feed-configs
 ANGSTROM_FEED_CONFIGS ?= "angstrom-feed-configs"
@@ -98,6 +100,9 @@ ENABLE_BINARY_LOCALE_GENERATION ?= "1"
 
 # We only want to build UTF8 locales
 LOCALE_UTF8_ONLY = "1"
+
+#qemu doesn't like this fp
+ENABLE_BINARY_LOCALE_GENERATION_ep9312 = "0"
 
 #qemu has taken a dislike to armeb as well
 ENABLE_BINARY_LOCALE_GENERATION_armeb = "0"

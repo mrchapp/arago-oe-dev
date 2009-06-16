@@ -100,6 +100,7 @@ do
                       cvs \
                       cwiid \
                       dates \
+                      dialog \
                       distcc \
                       dsniff \
                       duke3d \
@@ -122,6 +123,7 @@ do
                       findutils \
                       firefox \
                       fish \
+                      fldigi \
                       flex \
                       flite \
                       frameworkd \
@@ -306,6 +308,7 @@ do
                       tzdata \
                       ubahnnav \
                       ufraw \
+                      unzip \
                       usbutils \
                       usbview \
                       ushare \
@@ -326,6 +329,7 @@ do
                       xf86-input-tslib \
                       xf86-video-ati \
                       xf86-video-fbdev \
+                      xf86-video-sisusb \
                       xf86-video-vesa \
                       xfce-mcs-manager
                       xfce-mcs-manager \
