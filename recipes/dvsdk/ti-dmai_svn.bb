@@ -8,7 +8,7 @@ DEPENDS_beagleboard	+= "alsa-lib  ti-codec-engine ti-xdctools-native ti-dspbios-
 DEPENDS_dm6446-evm 	+= "alsa-lib  ti-codec-engine ti-xdctools-native ti-dspbios-native ti-cgt6x-native ti-codec-combo-dm6446 virtual/kernel "
 DEPENDS_dm355-evm  	+= "alsa-lib ti-codec-engine ti-xdctools-native ti-codec-combo-dm355 virtual/kernel"
 
-installdir = "${prefix}/ti"
+installdir = "${datadir}/ti"
 
 # Define DMAI build time variables
 TARGET 			?= "all"
@@ -56,7 +56,7 @@ do_compile () {
 		BIOS_INSTALL_DIR="${DSPBIOS_DIR}"\
 		LINUXLIBS_INSTALL_DIR="${STAGING_DIR_HOST}/usr" \
 		USER_XDC_PATH="${USER_XDC_PATH}" \
-		CROSS_COMPILE="${SDK_PATH}/bin/${TARGET_PREFIX}" \
+		CROSS_COMPILE="${CROSS_DIR}/bin/${TARGET_PREFIX}" \
 		VERBOSE="true" \
 		XDAIS_INSTALL_DIR="${CE_INSTALL_DIR}/cetools" \
 		LINK_INSTALL_DIR="${CE_INSTALL_DIR}/cetools/packages/dsplink" \

@@ -5,17 +5,19 @@ inherit autotools
 DEPENDS = "ti-dmai gstreamer gst-plugins-base gst-plugins-good gst-plugins-ugly"
 
 # Fetch source from svn repo
-SRCREV = "225"
+SRCREV = "285"
 SRC_URI = "svn://gforge.ti.com/svn/gstreamer_ti/trunk;module=gstreamer_ti;proto=https;user=anonymous;pswd='' \
 	"
 
 # Again, no '.' in PWD allowed :(
-PR = "r17"
+PR = "r23"
 PV = "svnr${SRCREV}"
 
 S = "${WORKDIR}/gstreamer_ti/ti_build/ticodecplugin"
 
-installdir = "${prefix}/ti"
+installdir = "${datadir}/ti"
+
+META_SDK_PATH ?= "${CROSS_DIR}"
 
 DMAI_INSTALL_DIR = "${STAGING_DIR}/${MULTIMACH_TARGET_SYS}/ti-dmai"
 CE_INSTALL_DIR="${STAGING_DIR}/${MULTIMACH_TARGET_SYS}/ti-codec-engine"
@@ -72,6 +74,9 @@ do_install_prepend () {
 	# default loadmodule script is hard-coded for insmod, change to modprobe
 	sed -i 's/insmod/modprobe/g' ${D}/${installdir}/gst/${PLATFORM}/loadmodules.sh
 	sed -i 's/.ko//g' ${D}/${installdir}/gst/${PLATFORM}/loadmodules.sh
+	if [ "${PLATFORM}" = "omap3530" ]; then
+		echo "modprobe sdmak" >> ${D}/${installdir}/gst/${PLATFORM}/loadmodules.sh
+	fi
 	chmod 0755 ${D}/${installdir}/gst -R
 }
 
