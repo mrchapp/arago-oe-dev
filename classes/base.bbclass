@@ -159,6 +159,12 @@ def base_read_file(filename):
 		return f.read().strip()
 	return None
 
+def base_ifelse(condition, iftrue = True, iffalse = False):
+    if condition:
+        return iftrue
+    else:
+        return iffalse
+
 def base_conditional(variable, checkvalue, truevalue, falsevalue, d):
 	import bb
 	if bb.data.getVar(variable,d,1) == checkvalue:
@@ -614,6 +620,9 @@ python base_do_fetch() {
 	except bb.fetch.NoMethodError:
 		(type, value, traceback) = sys.exc_info()
 		raise bb.build.FuncFailed("No method: %s" % value)
+	except bb.MalformedUrl:
+		(type, value, traceback) = sys.exc_info()
+		raise bb.build.FuncFailed("Malformed URL: %s" % value)
 
 	try:
 		bb.fetch.go(localdata)
@@ -1312,6 +1321,10 @@ ftp://lsof.itap.purdue.edu/pub/tools/unix/lsof/  ftp://gd.tuwien.ac.at/utils/adm
 ftp://lsof.itap.purdue.edu/pub/tools/unix/lsof/  ftp://sunsite.ualberta.ca/pub/Mirror/lsof/
 ftp://lsof.itap.purdue.edu/pub/tools/unix/lsof/  ftp://the.wiretapped.net/pub/security/host-security/lsof/
 http://www.apache.org/dist  http://archive.apache.org/dist
+ftp://.*/.*     http://mirrors.openembedded.org/
+https?$://.*/.* http://mirrors.openembedded.org/
+ftp://.*/.*     http://sources.openembedded.org/
+https?$://.*/.* http://sources.openembedded.org/
 
 }
 
