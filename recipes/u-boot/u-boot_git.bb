@@ -1,5 +1,5 @@
 require u-boot.inc
-PR ="r30"
+PR ="r32"
 
 FILESPATHPKG =. "u-boot-git:"
 
@@ -14,20 +14,29 @@ SRCREV_palmpre = "6b8edfde22acc574b5532e9f086e6a7287a9bc78"
 SRC_URI_append_afeb9260 = " file://AFEB9260-network-fix.patch;patch=1"
 SRC_URI_append_afeb9260-180 = " file://AFEB9260-network-fix.patch;patch=1"
 
-SRC_URI_beagleboard = "git://gitorious.org/u-boot-omap3/mainline.git;branch=omap3-dev;protocol=git \
-                 file://fw-env.patch;patch=1 \
-                 file://dss2.patch;patch=1 \
+SRC_URI_beagleboard = "git://git.denx.de/u-boot-ti.git;protocol=git \
+                 file://fw_env.config \
                  file://new-pinmux.patch;patch=1 \
 "
-SRCREV_beagleboard = "d363f9cb0918a1b6b92e2e20d01543d0c4f53274"
-PV_beagleboard = "2009.05+${PR}+gitr${SRCREV}"
+SRCREV_beagleboard = "1590f84007e2b50ad346a482fff89195cb04ff4e"
+PV_beagleboard = "2009.08+${PR}+gitr${SRCREV}"
+
+SRCREV_calamari = "f67066b6b0740b826ed862615c5ab022aaf4779a"
+PV_calamari = "2009.08+${PR}+gitr${SRCREV}"
+SRC_URI_append_calamari = " file://buggy-gcc-really-no-spe.patch;patch=1"
 
 SRC_URI_omap3-touchbook = "git://gitorious.org/u-boot-omap3/mainline.git;branch=omap3-dev;protocol=git \
-                 file://fw-env.patch;patch=1 \
+                 file://fw_env.config \
                  file://dss2.patch;patch=1 \
+                 file://600mhz.patch;patch=1 \
+                 file://new-pinmux.patch;patch=1 \
                  file://spi3.patch;patch=1 \
                  file://spi4.patch;patch=1 \
                  file://headphone.patch;patch=1 \
+                 file://power.patch;patch=1 \
+                 file://ai-logo.patch;patch=1 \
+                 file://mmcinit.patch;patch=1 \
+                 file://touchbook-config.patch;patch=1 \
 "
 SRCREV_omap3-touchbook = "d363f9cb0918a1b6b92e2e20d01543d0c4f53274"
 PV_omap3-touchbook = "2009.05+${PR}+gitr${SRCREV}"
@@ -38,8 +47,8 @@ SRCREV_omap3evm = "2dea1db2a3b7c12ed70bbf8ee50755089c5e5170"
 PV_omap3evm = "2009.03+${PR}+gitr${SRCREV}"
 
 
-SRCREV_omap3517-evm = "e60beb13cf0"
-SRC_URI_append_omap3517-evm = " \
+SRCREV_am3517-evm = "e60beb13cf0"
+SRC_URI_append_am3517-evm = " \
 file://omap3evm/0001-Changes-for-making-a-NAND-build.patch;patch=1 \
 file://omap3evm/0002-Fix-for-NFS-boot-for-OMAP3-EVM.patch;patch=1 \
 file://omap3evm/0003-OMAP3-timer-handling-to-1ms-tick-and-CONFIG_SYS_HZ-t.patch;patch=1 \
@@ -57,7 +66,7 @@ file://omap3evm/0014-EMAC-driver-cleanup-removed-debug-prints.patch;patch=1 \
 file://omap3evm/0015-EMAC-driver-Check-for-link-status-in-packet-send-lo.patch;patch=1 \
 file://omap3evm/0016-Config-option-and-name-changed-to-omap3517_evm.patch;patch=1 \
 "
-PV_omap3517-evm = "2009.03+${PR}+gitr${SRCREV}"
+PV_am3517-evm = "2009.03+${PR}+gitr${SRCREV}"
 
 SRC_URI_omapzoom = "git://www.sakoman.net/git/u-boot-omap3.git;branch=omap3-dev;protocol=git"
 SRCREV_omapzoom = "d691b424f1f5bf7eea3a4131dfc578d272e8f335"
