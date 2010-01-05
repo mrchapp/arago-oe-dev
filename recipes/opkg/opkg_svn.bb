@@ -1,7 +1,11 @@
 require opkg.inc
 
+DEPENDS_append = " openssl"
+
 PR = "${INC_PR}"
 
+PROVIDES =+ "virtual/update-alternatives"
+RPROVIDES_${PN} = "update-alternatives"
 PACKAGES =+ "libopkg-dev libopkg"
 
 FILES_libopkg-dev = "${libdir}/*.a ${libdir}/*.la ${libdir}/*.so"

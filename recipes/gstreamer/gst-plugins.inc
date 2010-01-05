@@ -3,13 +3,14 @@ DESCRIPTION = "Plugins for GStreamer"
 DEPENDS = "gstreamer libmikmod liboil libogg tremor libvorbis"
 DEPENDS += "${@base_conditional('ENTERPRISE_DISTRO', '1', '', 'libmad libid3tag', d)}"
 
-INC_PR = "r6"
+INC_PR = "r7"
 
 PACKAGES_DYNAMIC = "gst-plugin-*"
 
 SRC_URI = "http://gstreamer.freedesktop.org/src/${PN}/${PN}-${PV}.tar.bz2"
 
 EXTRA_OECONF = "--disable-aalib --disable-shout2 --disable-sdl --disable-cdaudio --x-includes=${STAGING_INCDIR} --x-libraries=${STAGING_LIBDIR} "
+EXTRA_OECONF_append_shr = " --disable-dvdnav "
 
 acpaths = "-I ${S}/common/m4 -I ${S}/m4"
 
@@ -35,7 +36,7 @@ python populate_packages_prepend () {
 	metapkg_rdepends = []
 	packages = bb.data.getVar('PACKAGES', d, 1).split()
 	for pkg in packages[1:]:
-		if not pkg in blacklist and not pkg in metapkg_rdepends and not pkg.endswith('-dev') and not pkg.count('locale'):
+		if not pkg in blacklist and not pkg in metapkg_rdepends and not pkg.endswith('-dev') and not pkg.count('locale') and not pkg.count('-static'):
 			metapkg_rdepends.append(pkg)
 	bb.data.setVar('RDEPENDS_' + metapkg, ' '.join(metapkg_rdepends), d)
 	bb.data.setVar('DESCRIPTION_' + metapkg, pn + ' meta package', d)

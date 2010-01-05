@@ -143,6 +143,9 @@ SRCDATE_ipkg-utils-native			?= "20060106"
 SRCDATE_ipkg-link				?= "20060106"
 SRCDATE_irssi					?= "20050930"
 
+# We want the newer util-linux package
+PREFERRED_PROVIDER_util-linux			?= "util-linux-ng"
+
 # we don't ship gtk-directfb by default
 PREFERRED_PROVIDER_gtk+				?= "gtk+"
 PREFERRED_PROVIDER_gdk-pixbuf-loader-ani	?= "gtk+"
@@ -162,6 +165,12 @@ PREFERRED_PROVIDER_gdk-pixbuf-loader-xpm	?= "gtk+"
 PREFERRED_PROVIDER_avahi			?= "avahi"
 PREFERRED_PROVIDER_gconf			?= "gconf"
 PREFERRED_PROVIDER_virtual/libusb0		?= "libusb-compat"
+
+# we use bluez4 instead of the older bluez3
+DISTRO_BLUETOOTH_MANAGER			= "bluez4"
+PREFERRED_PROVIDER_bluez-utils-dbus		= "bluez-utils"
+PREFERRED_PROVIDER_bluez-libs			= "bluez4"
+PREFERRED_PROVIDER_bluez-utils			= "bluez4"
 
 # Include any package preferred versions and srcrevs:
 

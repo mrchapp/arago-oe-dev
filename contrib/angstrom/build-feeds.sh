@@ -70,20 +70,23 @@ fi
 for machine in ${ARCH_MACHINES}
 do
         BUILD_MACHINE=$machine
-        BUILD_CLEAN="qmake-native qmake2-native qt-x11-free python python-native python-pygtk gnome-icon-theme"
+        BUILD_CLEAN="opkg-native qmake-native qmake2-native qt-x11-free iso-codes perl perl-native python python-native python-pygtk gnome-icon-theme"
         BUILD_TARGETS=" \
+                      opkg-native \
                       abiword \
                       aircrack-ng \
                       angstrom-task-gnome \
                       angstrom-zeroconf-audio \
                       apache2 \
                       artoolkit \
+                      asciidoc \
                       asterisk \
                       atomic \
                       autoconf \
                       automake \
                       binutils \
                       bison \
+                      blueman \
                       bluez-gnome \
                       bluez-hcidump \
                       boa \
@@ -119,6 +122,8 @@ do
                       epdfview \
                       epiphany \
                       evince \
+                      exalt \
+                      exalt-client \
                       exo \
                       fakeroot \
                       fennec \
@@ -143,6 +148,7 @@ do
                       gdb \
                       gdbserver \
                       gdm \
+                      geany \
                       geda \
                       geda-docs \
                       geda-examples \
@@ -154,6 +160,7 @@ do
                       geda-utils \
                       gimp \
                       glider \
+                      gksu \
                       gmp \
                       gmpc \
                       gnome-games \
@@ -188,6 +195,7 @@ do
                       iaimaster \
                       icebloxx \
                       imagemagick \
+                      inkscape \
                       inkwp \
                       ioquake3 \
                       ipaq-sleep \
@@ -232,7 +240,11 @@ do
                       mplayer \
                       mtd-utils \
                       mutt \
+                      mysql5 \
                       mythtv \
+                      mythplugins \
+                      myththemes \
+                      nano \
                       nautilus \
                       nbench-byte \
                       navit \
@@ -245,6 +257,7 @@ do
                       ntfs-3g \
                       numptyphysics \
                       octave \
+                      openbox \
                       opencv \
                       opencv-samples \
                       openmoko-browser2 \
@@ -256,9 +269,11 @@ do
                       pavucontrol \
                       palantir \
                       pairs \
+                      paprefs \
                       pciutils \
                       pdamaze \
                       perl \
+                      php \
                       pidgin \
                       pine \
                       pingus \
@@ -295,6 +310,7 @@ do
                       screen \
                       scummvm \
                       sdlquake \
+                      sdrshell \
                       sensors-applet \
                       setserial \
                       shisensho \
@@ -344,7 +360,9 @@ do
                       wscan \
                       wt \
                       wt3 \
+                      wvdial \
                       x11vnc \
+                      xclip \
                       xf86-input-evdev \
                       xf86-input-evtouch \
                       xf86-input-keyboard \

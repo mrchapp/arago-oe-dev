@@ -1,10 +1,10 @@
 DESCRIPTION = "SHR splash screen"
 SECTION = "x11/data"
 LICENSE = "MIT BSD"
-PV = "1.2-gitr${SRCREV}"
-PR = "r4"
-RRECOMMENDS_${PN} += "\
-	virtual/shr-splash-theme"
+PV = "1.2+gitr${SRCREV}"
+PR = "r5"
+DEPENDS = "virtual/shr-splash-theme"
+RRECOMMENDS = "virtual/shr-splash-theme"
 
 inherit update-rc.d
 

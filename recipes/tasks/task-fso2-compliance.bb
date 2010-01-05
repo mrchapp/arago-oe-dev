@@ -3,22 +3,26 @@ Install this task to make your distribution FSO 2.0-compliant."
 SECTION = "fso/base"
 LICENSE = "MIT"
 PV = "1.9.0"
-PR = "r1"
+PR = "r4"
 
 inherit task
 
 RDEPENDS_${PN} = "\
   dbus-hlid \
+# TODO: remove when fso2 is finished
+  frameworkd \
   \
   libfsobasics \
   libfsotransport \
   libfsoframework \
   libfsoresource \
   \
+  fsodatad \
   fsodeviced \
   fsogsmd \
+  fsotdld \
+  fsomusicd \
   fsonetworkd \
-  fsotimed \
   fsousaged \
   \
   fso-alsa-data \
@@ -43,9 +47,10 @@ RDEPENDS_${PN} = "\
 RRECOMMENDS_${PN} = "\
   fso-abyss \
   wmiconfig \
-  \
-#  tzdata \
-#  tzdata-americas \
-#  tzdata-asia \
-#  tzdata-europe \
+  tzdata \
+  tzdata-africa \
+  tzdata-americas \
+  tzdata-asia \
+  tzdata-australia \
+  tzdata-europe \
 "

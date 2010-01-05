@@ -1,5 +1,6 @@
 require python.inc
-DEPENDS = "python-native db gdbm openssl readline sqlite3 tcl tk zlib"
+DEPENDS = "python-native db gdbm openssl readline sqlite3 tcl zlib\
+           ${@base_contains('DISTRO_FEATURES', 'tk', 'tk', '', d)}"
 DEPENDS_sharprom = "python-native db readline zlib gdbm openssl"
 # set to .0 on every increase of INC_PR
 PR = "${INC_PR}.0"
@@ -32,6 +33,10 @@ inherit autotools
 #Somehow gcc doesn't set __SOFTFP__ when passing -mfloatabi=softp :(
 TARGET_CC_ARCH_append_armv6 = " -D__SOFTFP__"
 TARGET_CC_ARCH_append_armv7a = " -D__SOFTFP__"
+
+do_configure_prepend() {
+	autoreconf -Wcross --verbose --install --force --exclude=autopoint Modules/_ctypes/libffi || oenote "_ctypes failed to autoreconf"
+}
 
 #
 # Copy config.h and an appropriate Makefile for distutils.sysconfig,
