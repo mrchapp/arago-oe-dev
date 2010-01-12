@@ -1,5 +1,5 @@
 DESCRIPTION = "SHR Feed"
-PR = "r33"
+PR = "r34"
 PV = "1.0"
 LICENSE = "GPL"
 
@@ -80,7 +80,6 @@ RDEPENDS_${PN} += "\
 		sms-sentry \
 		cellhunter \
 		dillo2 \
-		usbmode \
 		pyefl-sudoku \
 		tasks \
 		dates \
@@ -232,7 +231,7 @@ RDEPENDS_${PN} += "\
 		aceofpenguins-launcher \
 		om-neon \
 		ipython \
-		phoneme-advanced-foundation \
+#		phoneme-advanced-foundation \
 		eve \
 #		python-pybluez \
 		x11perf \
@@ -263,4 +262,6 @@ RDEPENDS_${PN} += "\
 		make \
 		dnsmasq \
 		libsyncml \
+		qi \
+		qi-ubi \
 "

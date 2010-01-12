@@ -119,6 +119,7 @@ do
                       e-wm \
                       ekiga \
                       empathy \ 
+                      eog \
                       epdfview \
                       epiphany \
                       evince \
@@ -248,6 +249,7 @@ do
                       nautilus \
                       nbench-byte \
                       navit \
+                      netbook-launcher-efl \
                       netkit-ftp \
                       netsurf \
                       news \
@@ -323,6 +325,7 @@ do
                       subversion \
                       sugar \
                       sylpheed \
+                      sysstat \
                       systray \
                       task-beagleboard-demo \
                       task-gpe-pim \
