@@ -1,5 +1,5 @@
 # kernel
-PREFERRED_PROVIDER_virtual/kernel = "linux-msm7xxxx"
+PREFERRED_PROVIDER_virtual/kernel = "linux-msm7"
 
 # xserver
 PREFERRED_PROVIDER_virtual/xserver = "xserver-xorg"

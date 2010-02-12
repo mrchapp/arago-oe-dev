@@ -58,7 +58,7 @@ case "$arch" in
 	"armv7")
 			machines="" ;;
 	"armv7a")
-			machines="archos5 palmpre cm-t35 igep0020 omap3-touchbook beagleboard omap3evm am3517-evm omap3517-evm omap3-pandora omapzoom omapzoom2 overo" ;;
+			machines="archos5 archos5it palmpre cm-t35 igep0020 omap3-touchbook beagleboard omap3evm am3517-evm omap3517-evm omap3-pandora omapzoom omapzoom2 overo" ;;
 	"avr32")
 			machines="atngw100 at32stk1000" ;;
 	"bfin")
@@ -71,7 +71,7 @@ case "$arch" in
 	"i586")
 			machines="epia qemux86" ;;
 	"i686")
-			machines="guinness progear" ;;
+			machines="eee701 guinness progear" ;;
 	"iwmmxt")
 			machines="" ;;
 	"ppc405")	
@@ -95,7 +95,7 @@ fi
 echo "Sorting $arch"
 
 mkdir -p ../$archdir/base/ || true
-for i in `find . -name  "*.ipk"| grep $arch` ; do mv $i ../$archdir/base/ ; done
+for i in `find . -name  "*_$arch.ipk"` ; do mv $i ../$archdir/base/ ; done
         for machine in $machines ; do
                 for i in `find . -name  "*_$machine.ipk"| grep $machine` ; do mkdir -p ../$archdir/machine/$machine || true ;mv $i ../$archdir/machine/$machine ; done
 	done
