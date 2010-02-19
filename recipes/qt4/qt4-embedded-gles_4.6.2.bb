@@ -1,10 +1,10 @@
 require qt4-embedded.inc
-PR = "${INC_PR}.1"
+PR = "${INC_PR}.2"
 
 PROVIDES += "qt4-embedded"
-QT_GLFLAGS = "-opengl es2 -openvg"
+QT_GLFLAGS = "-opengl es2 -no-openvg"
 
-require qt-4.6.0.inc
+require qt-${PV}.inc
 
 
 FILESPATHPKG .= ":qt4-embedded-${PV}:qt4-embedded"
