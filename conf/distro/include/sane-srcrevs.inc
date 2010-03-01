@@ -56,7 +56,7 @@ SRCREV_pn-e-wm-theme-illume-shr ?= "1cc80e26a4558dfc2268b349d9a1f468e515bcfb"
 SRCREV_pn-e-wm-theme-illume-sixteen ?= "1cc80e26a4558dfc2268b349d9a1f468e515bcfb"
 SRCREV_pn-ebrainy ?= "21"
 SRCREV_pn-eds-dbus ?= "736"
-SRCREV_pn-elementary-theme-gry ?= "2ac643cc273d144bb731a8cbb8ec6b3615de43a0"
+SRCREV_pn-elementary-theme-gry ?= "2b62d1c9b02da047071105a7b5695acd6c6dbcca"
 SRCREV_pn-elementary-theme-niebiee ?= "2ac643cc273d144bb731a8cbb8ec6b3615de43a0"
 SRCREV_pn-elementary-theme-sixteen ?= "2ac643cc273d144bb731a8cbb8ec6b3615de43a0"
 SRCREV_pn-elf2flt ?= "1786"
@@ -312,7 +312,7 @@ SRCREV_pn-xserver-kdrive-glamo ?= "9b28d998424c77fbc057dd3a022ccbb122793a52"
 # Enlightenment Foundation Libraries
 # Caution: This is not alphabetically, but (roughly) dependency-sorted.
 # Please leave it like that.
-EFL_SRCREV ?= "46425"
+EFL_SRCREV ?= "46510"
 SRCREV_pn-edb-native ?= "${EFL_SRCREV}"
 SRCREV_pn-edb ?= "${EFL_SRCREV}"
 SRCREV_pn-eina-native ?= "${EFL_SRCREV}"

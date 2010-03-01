@@ -1,9 +1,11 @@
 DESCRIPTION = "SHR Lite Image Feed"
-PR = "r21"
+PR = "r25"
 PV = "2.0"
 LICENSE = "GPL"
 
 inherit task
+
+PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 def get_rdepends(bb, d):
     enabled = bb.data.getVar("ENABLE_BINARY_LOCALE_GENERATION", d, 1)
@@ -63,6 +65,10 @@ PACKAGES += "\
 
 
 RDEPENDS_${PN}-base = "\
+  ${MACHINE_TASK_PROVIDER} \
+  task-base \
+  glibc-utils \
+  glibc-charmap-utf-8 \
   netbase \
   sysfsutils \
   modutils-initscripts \
@@ -90,29 +96,30 @@ RDEPENDS_${PN}-fso = "\
 
 #FIXME: libcanberra-alsa should be pulled in by fsodeviced but isn't
 RDEPENDS_${PN}-audio = "\
+  alsa-utils-alsactl \
+  alsa-utils-alsamixer \
   alsa-utils-aplay \
   alsa-utils-amixer \
   libcanberra-alsa \
 "
 
-RDEPENDS_${PN}-audio_append_om-gta01 = "\
-  alsa-scenarii-shr \
-"
-
-RDEPENDS_${PN}-audio_append_om-gta02 =  "\
-  alsa-scenarii-shr \
-"
-
 RDEPENDS_${PN}-x = "\
+  task-x11-illume \
+  task-fonts-truetype-core \
   e-wm-menu-shr \
   shr-wizard \
   shr-theme-gry \
   xcursor-transparent-theme \
   xinput-calibrator \
+# All localedata based on IMAGE_LINGUAS
+  ${@get_rdepends(bb, d)} \
+# Make sure it's available for those who want's to play with illume2  
+  e-wm-config-illume2-shr \
 "
 
 RDEPENDS_${PN}-apps = "\
   fso-abyss \
+  task-fso2-compliance \
   phoneui-apps-messages \
   phoneui-apps-contacts \
   phoneui-apps-dialer \
@@ -128,7 +135,6 @@ RDEPENDS_${PN}-apps = "\
 
 
 RDEPENDS_${PN}-gtk = "\
-  openmoko-icon-theme-standard2 \
   shr-theme-gtk-e17lookalike \
   vala-terminal \
   pyphonelog \
