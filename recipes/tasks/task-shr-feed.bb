@@ -1,5 +1,5 @@
 DESCRIPTION = "SHR Feed"
-PR = "r42"
+PR = "r44"
 PV = "1.0"
 LICENSE = "GPL"
 
@@ -16,6 +16,7 @@ RDEPENDS_${PN} += "\
 		dosbox \
 		enotes \
 		epdfview \
+		estardict \
 		fbreader \
 		ffalarms \
 		gpe-calendar \
@@ -226,6 +227,7 @@ RDEPENDS_${PN} += "\
 		illume-keyboard-german \
 		illume-keyboard-hebrew \
 		illume-keyboard-numeric-alt \
+		illume-keyboard-default-numeric \
 		illume-keyboard-russian \
 		illume-keyboard-russian-terminal \
 		python-xlib \
