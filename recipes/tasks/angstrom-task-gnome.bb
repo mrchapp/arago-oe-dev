@@ -12,7 +12,7 @@ XSERVER ?= "xserver-xorg \
            xf86-input-keyboard \
 "
 
-PR = "r7"
+PR = "r10"
 
 PACKAGES += "task-gnome-apps task-gnome-fonts task-gnome task-gnome-gstreamer task-gnome-perl task-gnome-pulseaudio task-gnome-themes task-gnome-totem task-gnome-xserver-base task-gnome-xserver"
 
@@ -72,7 +72,7 @@ RDEPENDS_task-gnome = " \
   gnome-menus \
   gnome-mime-data \
 #  gnome-packagekit packagekit packagekit-gtkmodule \
-  gnome-panel libpanel-applet libgweather-locationdata\
+  gnome-panel libpanel-applet libgweather-locationdata \
   gnome-power-manager gnome-power-manager-applets \
   gnome-python gnome-python-extras \
   gnome-python-desktop \
@@ -96,9 +96,10 @@ RDEPENDS_task-gnome = " \
   gnome-vfs-plugin-sftp \
   gnome-vfs-plugin-tar \
   gvfs \
+  libgnome-bin \
   metacity \
-  nautilus nautilus-cd-burner desktop-file-utils\
-  networkmanager network-manager-applet networkmanager-openvpn \
+  nautilus nautilus-cd-burner desktop-file-utils gnome-mount \
+  networkmanager network-manager-applet networkmanager-openvpn modemmanager \
   policykit-gnome policykit \
   zenity \
  "

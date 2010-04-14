@@ -1,18 +1,17 @@
-SECTION = "libs"
 DESCRIPTION = "shared library for GIF images"
-SRC_URI = "${SOURCEFORGE_MIRROR}/giflib/${BP}.tar.bz2"
+SECTION = "libs"
 LICENSE = "MIT"
-PR = "r1"
+PR = "r2"
 
-PACKAGES += "${PN}-utils"
-
-FILES_${PN} = "${libdir}"
-FILES_${PN}-utils = "${bindir}"
+SRC_URI = "${SOURCEFORGE_MIRROR}/giflib/${BP}.tar.bz2"
 
 inherit autotools
 
-do_stage() {
-	oe_libinstall -so -C lib/.libs libgif ${STAGING_LIBDIR}
+PACKAGES += "${PN}-utils"
+FILES_${PN} = "${libdir}/libgif.so.*"
+FILES_${PN}-utils = "${bindir}"
 
-	install -m 0644 lib/gif_lib.h ${STAGING_INCDIR}/
-}
+BBCLASSEXTEND = "native"
+
+SRC_URI[md5sum] = "7125644155ae6ad33dbc9fc15a14735f"
+SRC_URI[sha256sum] = "e1c1ced9c5bc8f93ef0faf0a8c7717abf784d10a7b270d2285e8e1f3b93f2bed"

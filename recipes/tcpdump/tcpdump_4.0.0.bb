@@ -12,6 +12,7 @@ SRC_URI = " \
 	file://no-ipv6-tcpdump4.patch;patch=1 \
 	file://0001-minimal-IEEE802.15.4-allowed.patch;patch=1 \
 	file://ipv6-cross.patch;patch=1 \
+	file://configure.patch;patch=1 \
 "
 
 inherit autotools
@@ -32,3 +33,6 @@ do_install_append() {
 	# tcpdump 4.0.0 installs a copy to /usr/sbin/tcpdump.4.0.0
 	rm -f ${D}${sbindir}/tcpdump.${PV}
 }
+
+SRC_URI[md5sum] = "b22ca72890df2301d922c9f2d17867f9"
+SRC_URI[sha256sum] = "5fe99efe0274b5764c9974417c96a38b5f94e21096d8a94cc1fa172a42035284"

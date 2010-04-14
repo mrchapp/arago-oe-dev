@@ -3,7 +3,7 @@ DESCRIPTION = "Tools for monitoring and filtering incoming requests for tcp \
 LICENSE = "tcp-wrappers"
 PRIORITY = "optional"
 SECTION = "console/network"
-PR ="r4"
+PR ="r5"
 
 
 PACKAGES = "${PN}-dbg libwrap libwrap-doc libwrap-dev tcp-wrappers tcp-wrappers-doc"
@@ -107,8 +107,6 @@ do_install () {
 	install -m 0644 tcpd.h ${D}${includedir}/
 }
 
-do_stage() {
-        oe_libinstall -C shared -so  libwrap ${STAGING_LIBDIR}
-		install -m 0644 tcpd.h ${STAGING_INCDIR}
-}
 
+SRC_URI[md5sum] = "e6fa25f71226d090f34de3f6b122fb5a"
+SRC_URI[sha256sum] = "9543d7adedf78a6de0b221ccbbd1952e08b5138717f4ade814039bb489a4315d"

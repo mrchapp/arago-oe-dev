@@ -20,7 +20,7 @@ do_compile_append() {
                   libxklavier.pc
 }
 
-do_stage() {
-	autotools_stage_all
-}
 
+
+SRC_URI[archive.md5sum] = "1b714ba04835fb49511f9e1444a5ea4c"
+SRC_URI[archive.sha256sum] = "210ed5803109a8cef3b2ab1195bc73fe3385a97a8749d01673e020642d8e5a71"

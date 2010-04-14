@@ -3,12 +3,13 @@ LICENSE = "LGPL"
 DEPENDS = "ecore edje"
 PV = "0.0.0+svnr${SRCPV}"
 PR = "r0"
+SRCREV = "${EFL_SRCREV}"
 
 inherit efl
 
 EXTRA_OECONF = "--with-edje-cc=${STAGING_BINDIR_NATIVE}/edje_cc"
 
-SRC_URI = "svn://svn.enlightenment.org/svn/e/trunk/PROTO;module=eweather;proto=http"
+SRC_URI = "svn://svn.enlightenment.org/svn/e/trunk/PROTO;module=libeweather;proto=http"
 S = "${WORKDIR}/eweather"
 
 RSUGGESTS_${PN} = "elementary-tests"

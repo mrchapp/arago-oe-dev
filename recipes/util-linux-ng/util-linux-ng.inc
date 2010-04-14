@@ -8,7 +8,7 @@ inherit autotools
 
 DEFAULT_PREFERENCE = "-1"
 
-INC_PR = "r17"
+INC_PR = "r21"
 
 # allows for a release candidate
 RC ?= ""
@@ -53,7 +53,7 @@ FILES_util-linux-ng-umount = "${base_bindir}/umount.${PN}"
 # Moved to ${base_sbindir} by do_install:
 FILES_util-linux-ng-readprofile = "${base_sbindir}/readprofile.${PN}"
 FILES_util-linux-ng-fsck = "${base_sbindir}/fsck.${PN}"
-FILES_util-linux-ng-blkid = "${sbindir}/blkid"
+FILES_util-linux-ng-blkid = "${base_sbindir}/blkid.${PN}"
 FILES_${PN}-mountall = "${sysconfdir}/default/mountall.${PN}"
 
 RREPLACES_util-linux-ng-blkid = "e2fsprogs-blkid"
@@ -69,9 +69,10 @@ EXTRA_OECONF = "--disable-use-tty-group --disable-makeinstall-chown \
 --enable-kill --enable-last --enable-mesg --enable-raw --enable-login-utils \
 --enable-arch --enable-init --enable-partx --enable-schedutils \
 --with-fsprobe=builtin --enable-libuuid --enable-libblkid \
---enable-fsck"
+--enable-fsck --enable-reset"
 
 LDFLAGS_append_libc-uclibc = " -lintl"
+LDFLAGS_virtclass-native = "${BUILD_LDFLAGS}"
 
 S = "${WORKDIR}/util-linux-ng-${PV}${RC}"
 
@@ -123,9 +124,9 @@ do_install () {
 	mkdir -p ${D}${base_bindir}
 
         sbinprogs="agetty blockdev ctrlaltdel cfdisk vipw vigr"
-        sbinprogs_a="pivot_root hwclock mkswap shutdown mkfs.minix fsck.minix losetup swapon fdisk readprofile fsck"
+        sbinprogs_a="pivot_root hwclock mkswap shutdown mkfs.minix fsck.minix losetup swapon fdisk readprofile fsck blkid"
         usrbinprogs_a="chfn chsh hexdump last logger mesg newgrp renice wall"
-        binprogs_a="dmesg kill more umount mount login"
+        binprogs_a="dmesg kill more umount mount login reset"
 
         if [ "${base_sbindir}" != "${sbindir}" ]; then
         	mkdir -p ${D}${base_sbindir}
@@ -206,6 +207,7 @@ pkg_postinst_${PN} () {
 	update-alternatives --install ${base_bindir}/login login login.${PN} 100
 	update-alternatives --install ${base_sbindir}/vipw vipw vipw.${PN} 100
 	update-alternatives --install ${base_sbindir}/vigr vigr vigr.${PN} 100
+	update-alternatives --install ${bindir}/reset reset reset.${PN} 100
 	
 	# There seems to be problem, atleast on nslu2, with these, until they are
 	# fixed the busybox ones have higher priority
@@ -219,7 +221,7 @@ pkg_prerm_${PN} () {
 	test -x ${base_sbindir}/pivot_root.${PN} && \
 	update-alternatives --remove pivot_root pivot_root.${PN}
 
-	for i in dmesg kill more halt hwclock mkswap reboot shutdown sln mkfs.minix fsck.minix hecdump last logger mesg renice wall vipw vigr chfn newgrp chsh login ; do
+	for i in dmesg kill more halt hwclock mkswap reboot shutdown sln mkfs.minix fsck.minix hecdump last logger mesg renice wall vipw vigr chfn newgrp chsh login reset; do
 		update-alternatives --remove $i $i.${PN}
 	done
 }
@@ -257,12 +259,12 @@ pkg_prerm_util-linux-ng-losetup () {
 }
 
 pkg_postinst_util-linux-ng-swaponoff () {
-	update-alternatives --install ${base_sbindir}/swapoff swapoff swapoff.${PN} 100
+	update-alternatives --install ${base_sbindir}/swapoff swapoff swapon.${PN} 100
 	update-alternatives --install ${base_sbindir}/swapon swapon swapon.${PN} 100
 }
 
 pkg_prerm_util-linux-ng-swaponoff () {
-	update-alternatives --remove swapoff swapoff.${PN}
+	update-alternatives --remove swapoff swapon.${PN}
 	update-alternatives --remove swapon swapon.${PN}
 }
 
@@ -287,6 +289,14 @@ pkg_postinst_util-linux-ng-fsck () {
 
 pkg_prerm_util-linux-ng-fsck () {
 	update-alternatives --remove fsck fsck.${PN}
+}
+
+pkg_postinst_util-linux-ng-blkid () {
+	update-alternatives --install ${base_sbindir}/blkid blkid blkid.${PN} 100
+}
+
+pkg_prerm_util-linux-ng-blkid () {
+	update-alternatives --remove blkid blkid.${PN}
 }
 
 BBCLASSEXTEND = "native"

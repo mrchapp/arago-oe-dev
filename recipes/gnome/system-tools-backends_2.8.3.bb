@@ -1,6 +1,8 @@
 DESCRIPTION = "gnome system tools backends"
 LICENSE = "GPL"
 
+PR = "r2"
+
 DEPENDS = "dbus dbus-glib glib-2.0 policykit"
 
 # Shadow added so there is a full adduser/deluser
@@ -17,14 +19,13 @@ SRC_URI_append_angstrom = " \
             file://add-angstrom-distro.patch;patch=1 \
            "
 
-do_configure_prepend() {
-	sed -i -e /IT_PROG_INTLTOOL/d ${S}/configure.in
-	sed -i -e /Makefile.in/d ${S}/configure.in
-	sed -i -e 's: po : :g' ${S}/Makefile.am
-	sed -i -e /policy/d ${S}/Makefile.am
-	sed -i -e 's:org.freedesktop.SystemToolsBackends.service \\:org.freedesktop.SystemToolsBackends.service:g' ${S}/Makefile.am
-	sed -i -e 's:@INTLTOOL_POLICY_RULE@::g' ${S}/Makefile.am
+EXTRA_OECONF = " --with-net-dbus=${libdir}/perl5 "
+
+do_configure() {
 	sed -i -e 's:CC=$(CC):CC="$(CC)":g' ${S}/Net-DBus/Makefile.am
+	sed -i -e 's:CC=$(CC):CC="$(CC)":g' ${S}/Net-DBus/Makefile.in
+	gnu-configize
+	oe_runconf
 }
 
 do_install_append () {
@@ -40,3 +41,7 @@ FILES_${PN} += " ${libdir}/pkgconfig"
 FILES_${PN} += " ${datadir}/dbus-1/system-services"
 FILES_${PN} += " ${datadir}/system-tools-backends-2.0/files"
 FILES_${PN} += " ${datadir}/system-tools-backends-2.0/scripts"
+FILES_${PN} += " ${datadir}/polkit*"
+
+SRC_URI[archive.md5sum] = "403bf4b7c82455d995d6aa54613246c2"
+SRC_URI[archive.sha256sum] = "67629bb6502a4c5b8b639867deb40ecabd5676a4655c264c1f0dbeb97de5c98c"

@@ -1,5 +1,5 @@
 require u-boot.inc
-PR ="r43"
+PR ="r44"
 
 FILESPATHPKG =. "u-boot-git:"
 
@@ -18,21 +18,12 @@ SRC_URI_append_afeb9260 = " file://AFEB9260-network-fix.patch;patch=1"
 SRC_URI_append_afeb9260-180 = " file://AFEB9260-network-fix.patch;patch=1"
 SRC_URI_append_cm-t35 = "file://cm-t35/cm-t35.patch;patch=1"
 
-SRC_URI_beagleboard = "git://git.denx.de/u-boot-ti.git;protocol=git \
-                 file://fw_env.config \
-                 file://new-pinmux.patch;patch=1 \
-file://revision-detection.patch;patch=1 \
-file://i2c.patch;patch=1 \
-file://720MHz.patch;patch=1 \
-file://dss.patch;patch=1 \
-file://0001-omap3-clock.c-don-t-reprogram-clocks-when-trying-to-.patch;patch=1 \
-file://0002-beagleboard-add-pinmuxing-for-beagleboard-XM.patch;patch=1 \
-file://0003-beagleboard-move-muxing-into-revision-print-switch.patch;patch=1 \
-file://Cortex-A8-erratum-725233.diff;patch=1 \
+SRC_URI_beagleboard = "git://www.sakoman.com/git/u-boot.git;branch=omap3-v2010.3;protocol=git \
+                       file://0001-Minimal-Display-driver-for-OMAP3.patch;patch=1 \
+                       file://fw_env.config \
 "
-
-SRCREV_beagleboard = "a5cf522a91ba479d459f8221135bdb3e9ae97479"
-PV_beagleboard = "2009.11-rc1+${PR}+gitr${SRCREV}"
+SRCREV_beagleboard = "946351081bd14e8bf5816fc38b82e004a0e6b4fe"
+PV_beagleboard = "2010.03-rc1+${PR}+gitr${SRCREV}"
 
 SRCREV_calamari = "533cf3a024947aaf74c16573a6d951cd0c3d0a7d"
 
@@ -157,25 +148,24 @@ SRC_URI_dm6467t-evm  = "git://arago-project.org/git/people/hemant/u-boot-dm646x.
 SRCREV_dm6467t-evm   = "b037106746e5b942d7ef06bfcd776a7cdfe32f68"
 PV_dm6467t-evm       = "1.3.4+${PR}+gitr${SRCREV}"
 
-# OMAPL da380-omapl137/da850-omapl138-evm/hawkboard - PSP 3.20.00.07 (Beta)
+# OMAPL da380-omapl137/da850-omapl138-evm/hawkboard - master branch (hawk still .07beta)
 
-SRC_URI_da830-omapl137-evm = "git://arago-project.org/git/people/sekhar/u-boot-omapl1.git;protocol=git;branch=master"
-SRCREV_da830-omapl137-evm  = "0d291f2f255e6d66a78b3dc2445362a96ae39a57"
-PV_da830-omapl137-evm      = "2009.08+gitr${SRCREV}"
+SRC_URI_da830-omapl137-evm = "git://arago-project.org/git/projects/u-boot-omapl1.git;protocol=git;branch=master"
+SRCREV_da830-omapl137-evm  = "c7159a07ed980fddf6b804864fff872aff279dce"
+PV_da830-omapl137-evm      = "2009.11+gitr${SRCREV}"
 
-SRC_URI_da850-omapl138-evm = "git://arago-project.org/git/people/sekhar/u-boot-omapl1.git;protocol=git;branch=master"
-SRCREV_da850-omapl138-evm  = "0d291f2f255e6d66a78b3dc2445362a96ae39a57"
-PV_da850-omapl138-evm      = "2009.08+gitr${SRCREV}"
+SRC_URI_da850-omapl138-evm = "git://arago-project.org/git/projects/u-boot-omapl1.git;protocol=git;branch=master"
+SRCREV_da850-omapl138-evm  = "c7159a07ed980fddf6b804864fff872aff279dce"
+PV_da850-omapl138-evm      = "2009.11+gitr${SRCREV}"
 
 SRC_URI_hawkboard          = "git://arago-project.org/git/people/sekhar/u-boot-omapl1.git;protocol=git;branch=master"
 SRCREV_hawkboard           = "0d291f2f255e6d66a78b3dc2445362a96ae39a57"
 PV_hawkboard               = "2009.08+gitr${SRCREV}"
 
-SRC_URI_dm355-leopard = "git://www.denx.de/git/u-boot-arm.git;protocol=git;branch=next \
-                        file://leopardboard-support.patch;patch=1 \
+SRC_URI_dm355-leopard = "git://www.denx.de/git/u-boot-arm.git;protocol=git;branch=master \
 "
-SRCREV_dm355-leopard = "86d5c98d3d97d631b1d3a5f5e6a17e87c99b42cf"
-PV_dm355-leopard = "2009.05+2009.06-rc2+gitr${SRCREV}"
+SRCREV_dm355-leopard = "d650da2dd4af99967aabc43cccbd8f160eb4cea6"
+PV_dm355-leopard = "2009.05+2010.03-rc1+gitr${SRCREV}"
 
 SRC_URI_neuros-osd2 = "git://github.com/neuros/u-boot.git;protocol=git;branch=neuros"
 SRCREV_neuros-osd2 = "8de979d346624c0e4cfe2e5c0f08ce20ca4b5d14"

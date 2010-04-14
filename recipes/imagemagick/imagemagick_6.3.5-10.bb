@@ -2,13 +2,14 @@ DESCRIPTION = "ImageMagick is an image convertion tools"
 SECTION = "console/utils"
 LICENSE = "GPL"
 DEPENDS = "tiff jpeg libpng librsvg tiff zlib"
-PR = "r8"
+PR = "r9"
 
 SRC_URI = "ftp://ftp.nluug.nl/pub/ImageMagick/ImageMagick-${PV}.tar.bz2 \
            file://PerlMagic_MakePatch;patch=1 \
            file://makefile-am.patch;patch=1 \
            file://binconfig-fixes.patch;patch=1 \
-	   file://fix_open_file.patch;patch=1 "
+           file://fix_open_file.patch;patch=1 \
+           file://openm4-autoconf-fix.patch;patch=1"
 
 IMVER = "6.3.5"
 
@@ -33,3 +34,6 @@ BBCLASSEXTEND = "native"
 
 LEAD_SONAME = "libMagick.so.*"
 
+
+SRC_URI[md5sum] = "1b31777138ed78ae0e95b8480cb7e2c2"
+SRC_URI[sha256sum] = "a4d26fb438b15502cc4fb7842111d75d0bd4958c484b3d1bbe25dc60b4e63f84"
