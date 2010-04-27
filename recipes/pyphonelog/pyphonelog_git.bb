@@ -8,7 +8,7 @@ RDEPENDS += "python python-pygtk python-sqlite3 python-phoneutils"
 inherit distutils
 
 S = "${WORKDIR}/git"
-SRCREV = "7672065334cb64e890cfb86d0236f4c36d595e4b"
+SRCREV = "513dfba0f9f3573c6b5d432dbf1a866731893b3f"
 PV = "0.17.0+gitr${SRCPV}"
 PR = "r0"
 SRC_URI = "git://shr.bearstech.com/repo/pyphonelog.git;protocol=http"
