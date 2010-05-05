@@ -8,11 +8,10 @@ DEPENDS = "libframeworkd-glib xrandr"
 SRCREV = "66"
 
 PV = "0.5.8+svnr${SRCPV}"
-PR = "r0"
+PR = "r1"
 
 SRC_URI = "svn://omnewrotate.googlecode.com/svn;module=trunk;proto=http \
-           file://correct-sysfs-bl-path.patch;patch=1;maxrev=55 \
-"
+           file://xsession.script.patch;patch=1"
 
 S = "${WORKDIR}/trunk"
 
