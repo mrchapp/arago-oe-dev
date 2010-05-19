@@ -6,8 +6,9 @@ require gcc-common.inc
 LICENSE = "GPLv3"
 
 DEPENDS = "mpfr gmp"
+NATIVEDEPS = "mpfr-native gmp-native"
 
-INC_PR = "r11"
+INC_PR = "r12"
 
 SRC_URI = "${GNU_MIRROR}/gcc/gcc-${PV}/gcc-${PV}.tar.bz2;name=archive \
 	file://fedora/gcc43-c++-builtin-redecl.patch;patch=1;pnum=0 \
@@ -53,10 +54,11 @@ SRC_URI = "${GNU_MIRROR}/gcc/gcc-${PV}/gcc-${PV}.tar.bz2;name=archive \
 #	file://pr34130.patch;patch=1 \
 #	file://fortran-static-linking.patch;patch=1 \
 	file://gcc-arm-frename-registers.patch;patch=1 \
-	file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch;patch=1 \
 	file://gcc-4.3.1-ARCH_FLAGS_FOR_TARGET.patch;patch=1 \
 	file://zecke-xgcc-cpp.patch;patch=1 \
 	file://gcc-flags-for-build.patch;patch=1 \
+	file://gcc-pr36218.patch;patch=1 \
+	file://gcc-4.3.3-SYSROOT_CFLAGS_FOR_TARGET.patch;patch=1 \
         file://arm-gcc-objective.patch;patch=1 \
 "
 
@@ -99,6 +101,8 @@ FORTRAN_linux-gnueabi = ",fortran"
 JAVA = ""
 
 EXTRA_OECONF_BASE = "  --enable-cheaders=c_std --enable-libssp --disable-bootstrap --disable-libgomp --disable-libmudflap"
+EXTRA_OECONF_INITIAL = "--disable-libmudflap --disable-libgomp --disable-libssp --enable-decimal-float=no"
+EXTRA_OECONF_INTERMEDIATE = "--disable-libmudflap --disable-libgomp --disable-libssp"
 
 SRC_URI[archive.md5sum] = "cc3c5565fdb9ab87a05ddb106ba0bd1f"
 SRC_URI[archive.sha256sum] = "309f614a3c7fee88edc4928ff17185a19533949a1642ccf776e87d86303704de"

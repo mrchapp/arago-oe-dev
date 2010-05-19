@@ -2,13 +2,13 @@ DESCRIPTION = "Util-linux-ng is a suite of essential utilities for any Linux sys
 SECTION = "base"
 LICENSE = "GPL"
 DEPENDS = "udev zlib ncurses virtual/libintl"
-DEPENDS_virtclass-native = "zlib-native ncurses-native lzo-native"
+DEPENDS_virtclass-native = "zlib-native ncurses-native lzo-native gettext-native"
 
-inherit autotools
+inherit autotools gettext
 
 DEFAULT_PREFERENCE = "-1"
 
-INC_PR = "r23"
+INC_PR = "r24"
 
 # allows for a release candidate
 RC ?= ""
@@ -71,7 +71,7 @@ EXTRA_OECONF = "--disable-use-tty-group --disable-makeinstall-chown \
 --with-fsprobe=builtin --enable-libuuid --enable-libblkid \
 --enable-fsck --enable-reset"
 
-LDFLAGS_append_libc-uclibc = " -lintl"
+LDFLAGS_append_libc-uclibc = "${@['',' -lintl'][bb.data.getVar('USE_NLS', d, 1) == 'yes']}"
 LDFLAGS_virtclass-native = "${BUILD_LDFLAGS}"
 
 S = "${WORKDIR}/util-linux-ng-${PV}${RC}"

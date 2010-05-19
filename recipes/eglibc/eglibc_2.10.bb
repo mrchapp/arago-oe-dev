@@ -4,9 +4,10 @@ DEPENDS += "gperf-native"
 FILESPATHPKG =. "eglibc-svn:"
 PV = "2.10"
 PR = "${INC_PR}.9"
-SVN_REV="10152"
+PR_append = "+svnr${SRCPV}"
+SRCREV="10152"
 EGLIBC_BRANCH="eglibc-2_10"
-SRC_URI = "svn://svn.eglibc.org/branches;module=${EGLIBC_BRANCH};rev=${SVN_REV};proto=svn \
+SRC_URI = "svn://svn.eglibc.org/branches;module=${EGLIBC_BRANCH};proto=svn \
            file://eglibc-svn-arm-lowlevellock-include-tls.patch;patch=1 \
            file://armv4t-interworking.patch;patch=1 \
            file://IO-acquire-lock-fix.patch;patch=1 \
@@ -95,7 +96,5 @@ do_compile () {
 		done
 	)
 }
-
-require eglibc-stage.inc
 
 require eglibc-package.bbclass
