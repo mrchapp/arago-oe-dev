@@ -10,24 +10,24 @@ SRCREV_beagleboard = "1c9276af4d6a5b7014a7630a1abeddf3b3177563"
 
 PV = "1.42+${PR}+gitr${SRCREV}"
 PV_beagleboard = "1.44+${PR}+gitr${SRCREV}"
-PR ="r10"
+PR ="r11"
 PE = "1"
 
 SRC_URI = "git://gitorious.org/x-load-omap3/mainline.git;branch=master;protocol=git"
 
 SRC_URI_append_beagleboard = " \
-                              file://name.patch;patch=1 \
-                              file://bb8547fcbc54ecc7a75f9ad45a31042a04d8a2ce.patch;patch=1 \
+                              file://name.patch \
+                              file://bb8547fcbc54ecc7a75f9ad45a31042a04d8a2ce.patch \
                              "
 
 SRC_URI_append_omap3-touchbook = " \
-                              file://name.patch;patch=1 \
-                              file://screen-off.patch;patch=1 \
+                              file://name.patch \
+                              file://screen-off.patch \
                              "
 
 
 SRC_URI_append_am3517-evm = " \
-                                 file://xload-shiva.diff;patch=1 \
+                                 file://xload-shiva.diff \
 "
 
 SRC_URI_omapzoom2 = "git://dev.omapzoom.org/pub/scm/bootloader/x-loader.git;protocol=git \

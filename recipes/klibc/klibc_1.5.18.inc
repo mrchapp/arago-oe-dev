@@ -1,16 +1,16 @@
 require klibc-common.inc
 
-SRC_URI += "file://fstype-sane-vfat-and-jffs2-for-1.5.patch;patch=1 \
-            file://modprobe.patch;patch=1 \
-            file://dash_readopt.patch;patch=1 \
-            file://wc.patch;patch=1 \
-            file://staging.patch;patch=1 \
-            file://klibc_kexecsyscall.patch;patch=1 \
-            file://mntproc-definitions.patch;patch=1 \
-            file://isystem.patch;patch=1 \
-	    "
-
-DEFAULT_PREFERENCE = "-1"
+SRC_URI += "file://fstype-sane-vfat-and-jffs2-for-1.5.patch \
+            file://modprobe.patch \
+            file://dash_readopt.patch \
+            file://wc.patch \
+            file://staging.patch \
+            file://klibc_kexecsyscall.patch \
+            file://mntproc-definitions.patch \
+            file://arm-signal-cleanup.patch \
+            file://socket.h.patch \
+            file://isystem.patch \
+            "
 
 KLIBC_FETCHDIR = "1.5"
 
@@ -22,16 +22,16 @@ KLIBC_ARCH_pentium = 'x86'
 
 EXTRA_OEMAKE = "'KLIBCARCH=${KLIBC_ARCH}' \
                 'CROSS_COMPILE=${TARGET_PREFIX}' \
-		'KLIBCKERNELSRC=${STAGING_KERNEL_DIR}' \
+                'KLIBCKERNELSRC=${STAGING_KERNEL_DIR}' \
                 "
 
 do_configure () {
-	ln -sf ${STAGING_KERNEL_DIR} linux
-	cd ${S}/usr/klibc/arch/
-	ln -s i386 x86
-	cd ${S}/usr/include/arch/
-	ln -s i386 x86
-	cd ${S}
+        ln -sf ${STAGING_KERNEL_DIR} linux
+        cd ${S}/usr/klibc/arch/
+        ln -s i386 x86
+        cd ${S}/usr/include/arch/
+        ln -s i386 x86
+        cd ${S}
 }
 
 SRC_URI[md5sum] = "5c8b6577b9acb3809cace6e118cdd55b"
@@ -42,3 +42,11 @@ do_install_append() {
         install -m 755 usr/utils/${KLIBC_UTILS_VARIANT}/sync ${D}${base_bindir}
         install -m 755 usr/utils/${KLIBC_UTILS_VARIANT}/ls ${D}${base_bindir}
 }
+
+PACKAGES += "${KLIBC_UTILS_PKGNAME}-dmesg \
+             ${KLIBC_UTILS_PKGNAME}-sync \
+             ${KLIBC_UTILS_PKGNAME}-ls"
+
+FILES_${KLIBC_UTILS_PKGNAME}-dmesg = "${base_bindir}/dmesg"
+FILES_${KLIBC_UTILS_PKGNAME}-sync = "${base_bindir}/sync"
+FILES_${KLIBC_UTILS_PKGNAME}-ls = "${base_bindir}/ls"
