@@ -2,8 +2,8 @@ require quilt.inc
 
 SRC_URI_append_build-darwin = "?   file://non-gnu.patch "
 RDEPENDS_${PN} = "diffstat-native patch-native bzip2-native util-linux-native"
-FILESDIR = "${@os.path.dirname(bb.data.getVar('FILE',d,1))}/quilt-${PV}"
 
+FILESPATHPKG =. quilt-${PV}
 INHIBIT_AUTOTOOLS_DEPS = "1"
 
 inherit autotools native

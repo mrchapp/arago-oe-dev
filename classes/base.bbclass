@@ -57,7 +57,7 @@ oe_runmake() {
 	${MAKE} ${EXTRA_OEMAKE} "$@" || die "oe_runmake failed"
 }
 
-def base_dep_prepend(d):
+def base_deps(d):
 	#
 	# Ideally this will check a flag so we will operate properly in
 	# the case where host == build == target, for now we don't work in
@@ -75,11 +75,17 @@ def base_dep_prepend(d):
 		if (bb.data.getVar('HOST_SYS', d, 1) !=
 	     	    bb.data.getVar('BUILD_SYS', d, 1)):
 			deps += " virtual/${TARGET_PREFIX}gcc virtual/libc "
+		elif bb.data.inherits_class('native', d) and \
+				bb.data.getVar('PN', d, True) not in \
+				("linux-libc-headers-native", "quilt-native",
+				 "unifdef-native", "shasum-native",
+				 "stagemanager-native", "coreutils-native"):
+			deps += " linux-libc-headers-native"
 	return deps
 
-DEPENDS_prepend="${@base_dep_prepend(d)} "
-DEPENDS_virtclass-native_prepend="${@base_dep_prepend(d)} "
-DEPENDS_virtclass-nativesdk_prepend="${@base_dep_prepend(d)} "
+DEPENDS_prepend="${@base_deps(d)} "
+DEPENDS_virtclass-native_prepend="${@base_deps(d)} "
+DEPENDS_virtclass-nativesdk_prepend="${@base_deps(d)} "
 
 
 SCENEFUNCS += "base_scenefunction"
@@ -171,6 +177,7 @@ def oe_unpack_file(file, data, url = None):
 	else:
 		efile = file
 	cmd = None
+	(type, host, path, user, pswd, parm) = bb.decodeurl(url)
 	if file.endswith('.tar'):
 		cmd = 'tar x --no-same-owner -f %s' % file
 	elif file.endswith('.tgz') or file.endswith('.tar.gz') or file.endswith('.tar.Z'):
@@ -187,10 +194,12 @@ def oe_unpack_file(file, data, url = None):
 		cmd = 'xz -dc %s > %s' % (file, efile)
 	elif file.endswith('.zip') or file.endswith('.jar'):
 		cmd = 'unzip -q -o'
-		(type, host, path, user, pswd, parm) = bb.decodeurl(url)
 		if 'dos' in parm:
 			cmd = '%s -a' % cmd
 		cmd = "%s '%s'" % (cmd, file)
+	elif (type == "file" and file.endswith('.patch') or file.endswith('.diff')) and parm.get('apply') != 'no':
+	# patch and diff files are special and need not be copied to workdir
+		cmd = ""
 	elif os.path.isdir(file):
 		destdir = "."
 		filespath = bb.data.getVar("FILESPATH", data, 1).split(":")
@@ -206,28 +215,34 @@ def oe_unpack_file(file, data, url = None):
 
 		cmd = 'cp -pPR %s %s/%s/' % (file, os.getcwd(), destdir)
 	else:
-		(type, host, path, user, pswd, parm) = bb.decodeurl(url)
 		if not 'patch' in parm and parm.get('apply') != 'yes':
 			# The "destdir" handling was specifically done for FILESPATH
 			# items.  So, only do so for file:// entries.
 			if type == "file":
-				destdir = bb.decodeurl(url)[1] or "."
+				if not host:
+					dest = os.path.dirname(path) or "."
+				else:
+				# this case is for backward compatiblity with older version
+				# of bitbake which do not have the fix
+				# http://cgit.openembedded.org/cgit.cgi/bitbake/commit/?id=ca257adc587bb0937ea76d8b32b654fdbf4192b8
+				# this should not be needed once all releases of bitbake has this fix
+				# applied/backported
+					dest = host + os.path.dirname(path) or "."
 			else:
-				destdir = "."
-			bb.mkdirhier("%s/%s" % (os.getcwd(), destdir))
-			cmd = 'cp %s %s/%s/' % (file, os.getcwd(), destdir)
-
+				dest = "."
+			bb.mkdirhier("%s" % os.path.join(os.getcwd(),dest))
+			cmd = 'cp %s %s' % (file, os.path.join(os.getcwd(), dest))
 	if not cmd:
 		return True
-
-	dest = os.path.join(os.getcwd(), os.path.basename(file))
+	if not host:
+		dest = os.path.join(os.getcwd(), path)
+	else:
+		dest = os.path.join(os.getcwd(), os.path.join(host, path))
 	if os.path.exists(dest):
 		if os.path.samefile(file, dest):
 			return True
-
 	# Change to subdir before executing command
 	save_cwd = os.getcwd();
-	parm = bb.decodeurl(url)[5]
 	if 'subdir' in parm:
 		newdir = ("%s/%s" % (os.getcwd(), parm['subdir']))
 		bb.mkdirhier(newdir)
@@ -375,6 +390,13 @@ python () {
             this_machine = bb.data.getVar('MACHINE', d, 1)
             if this_machine and not re.match(need_machine, this_machine):
                 raise bb.parse.SkipPackage("incompatible with machine %s" % this_machine)
+
+        need_target = bb.data.getVar('COMPATIBLE_TARGET_SYS', d, 1)
+        if need_target:
+            import re
+            this_target = bb.data.getVar('TARGET_SYS', d, 1)
+            if this_target and not re.match(need_target, this_target):
+                raise bb.parse.SkipPackage("incompatible with target system %s" % this_target)
 
     pn = bb.data.getVar('PN', d, 1)
 

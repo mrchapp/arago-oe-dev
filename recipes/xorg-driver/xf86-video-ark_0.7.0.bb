@@ -1,7 +1,7 @@
 require xorg-driver-video.inc
-PE = "1"
-
 DESCRIPTION = "X.Org X server -- ark display driver"
+PE = "1"
+PR = "${INC_PR}.0"
 
 SRC_URI += "file://get-rid-of-host-includes.patch"
 SRC_URI[archive.md5sum] = "6826c556ebe9a1248cbc7f7edd44f956"

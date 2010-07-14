@@ -5,7 +5,7 @@
 DESCRIPTION = "Packages that are compatible with the SlugOS firmware"
 HOMEPAGE = "http://www.nslu2-linux.org"
 LICENSE = "MIT"
-PR = "r66"
+PR = "r68"
 CONFLICTS = "db3"
 
 COMPATIBLE_MACHINE = "nslu2|ixp4xx"
@@ -21,7 +21,6 @@ ALLOW_EMPTY = "1"
 SLUGOS_PACKAGES = "\
 	alsa-lib \
 	alsa-utils \
-	apex-env \
 	apr \
 	asterisk \
 	asterisk-core-sounds-en-alaw \
@@ -47,8 +46,7 @@ SLUGOS_PACKAGES = "\
 	bind \
 	binutils \
 	bison \
-	bluez-hcidump \
-	bluez4 \
+	bluez-libs \
 	bogofilter \
 	bonnie++ \
 	boost \
@@ -62,10 +60,10 @@ SLUGOS_PACKAGES = "\
 	coreutils \
 	cron \
 	cryptsetup \
-	cups \
 	curl \
 	cvs \
 	db \
+	dbus \
 	devio \
 	devlabel \
 	diffstat \
@@ -93,7 +91,6 @@ SLUGOS_PACKAGES = "\
 	glib-2.0 \
 	gnu-config \
 	gphoto2 \
-	gpsd \
 	grep \
 	groff \
 	gtk-doc \
@@ -101,18 +98,15 @@ SLUGOS_PACKAGES = "\
 	hdparm \
 	hostap-daemon \
 	ifupdown \
-	inetutils \
 	iozone3 \
 	iperf \
 	ipkg-utils \
 	iptables \
-	ircp \
 	joe \
 	jpeg \
 	kexec-tools \
 	lcdproc \
 	less \
-	libao \
 	libdvb \
 	libexif \
 	libid3tag \
@@ -134,10 +128,8 @@ SLUGOS_PACKAGES = "\
 	logrotate \
 	lrzsz \
 	lsof \
-	lvm2 \
 	m4 \
 	madplay \
-	madwifi-ng \
 	mailx \
 	make \
 	man man-pages \
@@ -146,11 +138,9 @@ SLUGOS_PACKAGES = "\
 	mediatomb \
 	memtester \
 	mgetty \
-	miau \
 	microcom \
 	minicom \
 	monit \
-	mpd \
 	mt-daapd \
 	mtd-utils \
 	mutt \
@@ -160,20 +150,14 @@ SLUGOS_PACKAGES = "\
 	ncftp \
 	ncurses \
 	net-tools \
-	netatalk \
 	netcat \
-	netpbm \
 	nfs-utils \
 	ngrep \
 	nmap \
 	ntfs-3g \
 	ntp \
 	ntpclient \
-	obexftp \
-	obexpush \
-	openobex-apps \
 	openntpd \
-	openobex \
 	openssh \
 	openvpn \
 	owfs \
@@ -190,12 +174,9 @@ SLUGOS_PACKAGES = "\
 	puppy \
 	python \
 	quilt \
-	reiserfsprogs reiser4progs \
 	rng-tools \
 	rsync \
-	rtorrent \
 	samba \
-	sane-backends \
 	screen \
 	sed \
 	setpwc \
@@ -215,7 +196,6 @@ SLUGOS_PACKAGES = "\
 	sysfsutils \
 	syslog-ng \
 	tar \
-	task-mokogateway-everything \
 	tcpdump \
 	thttpd \
 	tiff \
@@ -235,7 +215,6 @@ SLUGOS_PACKAGES = "\
 	webcam-server \
 	wget \
 	wireless-tools \
-	wireshark \
 	wpa-supplicant \
         wview-sim \
 	wview-vpro \
@@ -245,6 +224,41 @@ SLUGOS_PACKAGES = "\
 	zd1211-firmware \
 	zip \
 	zlib \
+	"
+
+# Packages that may pull in X11 libs.  We need to consider
+# if these are practical.
+SLUGOS_X11_PACKAGES = "\
+	bluez-hcidump \
+	bluez4 \
+	cups \
+	gpsd \
+	ircp \
+	libao \
+	mpd \
+	netatalk \
+	obexftp \
+	obexpush \
+	openobex-apps \
+	openobex \
+	rtorrent \
+	sane-backends \
+	task-mokogateway-everything \
+	wireshark \
+	"
+
+# Packages that are broken but need to be fixed!
+#
+# - apex-env: gcc4.4
+# - inetutils: gcc 4.4
+# - lvm2: gcc 4.4 (suspected)
+# - madwifi-ng: gcc 4.4 (and possibly other problems)
+# 
+SLUGOS_BROKEN_BUT_NEED_FIXING_PACKAGES = "\
+	apex-env \
+	inetutils \
+	lvm2 \
+	madwifi-ng \
 	"
 
 # Packages currently broken on all platforms
@@ -263,12 +277,15 @@ SLUGOS_BROKEN_PACKAGES = "\
 	linphone \
 	lirc-modules lirc \
 	madfu \
+	miau \
 	motion \
+	netpbm \
 	openldap \
 	postfix \
 	pvrusb2-mci \
 	pwc \
 	qc-usb-messenger \
+	reiserfsprogs reiser4progs \
 	task-native-sdk \
 	unionfs-modules unionfs-utils \
 	wview-sim-mysql wview-wxt510-mysql wview-vpro-mysql \

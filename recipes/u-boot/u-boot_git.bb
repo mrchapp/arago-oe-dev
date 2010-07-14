@@ -1,5 +1,5 @@
 require u-boot.inc
-PR ="r52"
+PR ="r58"
 
 FILESPATHPKG =. "u-boot-git:"
 
@@ -19,6 +19,7 @@ SRC_URI_append_afeb9260 = " file://AFEB9260-network-fix.patch"
 SRC_URI_append_afeb9260-180 = " file://AFEB9260-network-fix.patch"
 SRC_URI_append_cm-t35 = "file://cm-t35/cm-t35.patch"
 SRC_URI_append_bug20 = "file://bug-uboot.patch"
+SRC_URI_append_bug20 += "file://bug-video-setting.patch"
 
 SRC_URI_beagleboard = "git://www.denx.de/git/u-boot.git;protocol=git \
                        file://0001-OMAP3-enable-i2c-bus-switching-for-Beagle-and-Overo.patch \
@@ -60,6 +61,12 @@ SRC_URI_beagleboard = "git://www.denx.de/git/u-boot.git;protocol=git \
                        file://0037-OMAP3-beagle-pass-expansionboard-name-in-bootargs.patch \
                        file://0038-Added-configurations-for-xM-Rev-A-board.patch \
                        file://0039-OMAP3-beagle-setenv-beaglerev-for-AxBx-Cx-xMA-for-be.patch \
+                       file://0001-OMAP-mmc-add-support-for-second-and-third-mmc-chan.patch \
+		       file://0001-OMAP3-Beagle-enable-support-for-second-and-third-m.patch \
+		       file://0038-BeagleBoard-Added-LED-driver.patch \
+		       file://0039-Add-led-command.patch \
+		       file://0041-BeagleBoard-Enabled-LEDs.patch \
+		       file://0043-BeagleBoard-Add-CONFIG_SYS_MEMTEST_SCRATCH.patch \
                        file://fw_env.config \
 "
 SRCREV_beagleboard = "ca6e1c136ddb720c3bb2cc043b99f7f06bc46c55"
@@ -97,36 +104,24 @@ SRC_URI_omap3-touchbook = "git://gitorious.org/u-boot-omap3/mainline.git;branch=
 SRCREV_omap3-touchbook = "d363f9cb0918a1b6b92e2e20d01543d0c4f53274"
 PV_omap3-touchbook = "2009.05+${PR}+gitr${SRCREV}"
 
+# ~ TI PSP v2009.11_OMAPPSP_03.00.01.06 (+ couple of commits)
+SRC_URI_omap3evm = "git://arago-project.org/git/projects/u-boot-omap3.git;protocol=git \
+	file://0001-omap3evm-Change-default-console-serial-port-from.patch \
+"
+SRCREV_omap3evm = "c0a8fb217fdca7888d89f9a3dee74a4cec865620"
+PV_omap3evm = "2009.11+${PR}+gitr${SRCREV}"
 
-SRC_URI_omap3evm = "git://gitorious.org/u-boot-omap3/mainline.git;branch=omap3-dev;protocol=git"
-SRCREV_omap3evm = "2dea1db2a3b7c12ed70bbf8ee50755089c5e5170"
-PV_omap3evm = "2009.03+${PR}+gitr${SRCREV}"
-
-SRC_URI_dm3730-am3715-evm = "git://arago-project.org/git/projects/u-boot-omap3.git;protocol=git"
-# This tag is v2009.11_OMAPPSP_03.00.00.05
-SRCREV_dm3730-am3715-evm = "9df15c53c9a9bc1ec9c68c33821c50dc26797d6c"
+# ~ TI PSP v2009.11_OMAPPSP_03.00.01.06 (+ couple of commits)
+SRC_URI_dm3730-am3715-evm = "git://arago-project.org/git/projects/u-boot-omap3.git;protocol=git \
+	file://0001-omap3evm-Change-default-console-serial-port-from.patch \
+"
+SRCREV_dm3730-am3715-evm = "c0a8fb217fdca7888d89f9a3dee74a4cec865620"
 PV_dm3730-am3715-evm = "2009.11+${PR}+gitr${SRCREV}"
 
-SRCREV_am3517-evm = "e60beb13cf0"
-SRC_URI_append_am3517-evm = " \
-file://omap3evm/0001-Changes-for-making-a-NAND-build.patch \
-file://omap3evm/0002-Fix-for-NFS-boot-for-OMAP3-EVM.patch \
-file://omap3evm/0003-OMAP3-timer-handling-to-1ms-tick-and-CONFIG_SYS_HZ-t.patch \
-file://omap3evm/0004-Reverse-patch-for-NFS-boot-to-fix-comments-provided.patch \
-file://omap3evm/0005-SMC911x-driver-fixed-for-NFS-boot.patch \
-file://omap3evm/0006-Added-OMAP3517-3505-support.patch \
-file://omap3evm/0007-OMAP3517TEB-validated-on-OMAP3517TEB-board.patch \
-file://omap3evm/0008-OMAP3517PRE-ALPHA-validated-on-OMAP3517PRE_ALPHA-bo.patch \
-file://omap3evm/0009-OMAP3517PRE-ALPHA-DDR-size-issue-fixed.patch \
-file://omap3evm/0010-OMAP3517PRE-ALPHA-Mux-configuration-for-MMC-CD-and.patch \
-file://omap3evm/0011-Ethernet-driver-functional-no-need-for-time-delay.patch \
-file://omap3evm/0012-EMAC-driver-Implement-GPIO-driven-PHY-reset.patch \
-file://omap3evm/0013-Cleaned-up-during-EVM-hang-issue.patch \
-file://omap3evm/0014-EMAC-driver-cleanup-removed-debug-prints.patch \
-file://omap3evm/0015-EMAC-driver-Check-for-link-status-in-packet-send-lo.patch \
-file://omap3evm/0016-Config-option-and-name-changed-to-omap3517_evm.patch \
-"
-PV_am3517-evm = "2009.03+${PR}+gitr${SRCREV}"
+# ~ TI PSP v2009.11_OMAPPSP_03.00.01.06 (+ couple of commits)
+SRC_URI_am3517-evm = "git://arago-project.org/git/projects/u-boot-omap3.git;protocol=git"
+SRCREV_am3517-evm = "c0a8fb217fdca7888d89f9a3dee74a4cec865620"
+PV_am3517-evm = "2009.11+${PR}+gitr${SRCREV}"
 
 SRC_URI_omapzoom = "git://www.sakoman.net/git/u-boot-omap3.git;branch=omap3-dev;protocol=git"
 SRCREV_omapzoom = "d691b424f1f5bf7eea3a4131dfc578d272e8f335"

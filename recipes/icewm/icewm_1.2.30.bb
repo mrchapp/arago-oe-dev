@@ -1,9 +1,9 @@
 DESCRIPTION = "IceWM Window Manager"
 SECTION = "x11/wm"
 LICENSE = "GPL"
-DEPENDS = "virtual/libx11 libxext libxcomposite libxfixes libxdamage libxrender libxinerama libxpm xrandr xft mkfontdir-native"
+DEPENDS = "virtual/libx11 libxext libxcomposite libxfixes libxdamage libxrender libxinerama libxpm xrandr libxft mkfontdir-native"
 RRECOMMENDS_${PN} = "ttf-dejavu-sans"
-PR = "r2"
+PR = "r3"
 
 SRC_URI = "\
   ${SOURCEFORGE_MIRROR}/icewm/icewm-${PV}.tar.gz \

@@ -1,5 +1,5 @@
 DESCRIPTION = "SHR Feed"
-PR = "r57"
+PR = "r60"
 PV = "1.0"
 LICENSE = "GPL"
 
@@ -21,6 +21,7 @@ RDEPENDS_${PN} += "\
 		evopedia \
 		fbreader \
 		ffalarms \
+		foxtrotgps \
 		gpe-calendar \
 		gpe-todo \
 		gpe-scap \
@@ -58,6 +59,8 @@ RDEPENDS_${PN} += "\
 		shr-splash-theme-simple \
 		shr-splash-theme-dontpanic \
 		shr-splash-theme-handy \
+		shr-splash-theme-tux \
+		shr-splash-theme-logo \
 		vagalume \
 		wireshark \
 		x11vnc \
@@ -262,6 +265,7 @@ RDEPENDS_${PN} += "\
 		fltkwwpointcal \
 		transmission \
 		xf86-input-tslib \
+		xf86-video-fbdev \
 		fltkcocktailbar \
 		fltkcurrency \
 		fltkspacetrader \
@@ -287,6 +291,7 @@ RDEPENDS_${PN} += "\
 		neolight \
 		spojegui \
 		dbus-daemon-proxy \
+		unixbench \
 "
 
 # this is only usefull on gta02 and on other devices it's trying to pull mesa-dri (not respecting DEFAULT_PROVIDER for virtual/libgl)

@@ -4,12 +4,12 @@ SECTION = "x11/apps"
 LICENSE = "MIT-X"
 DEPENDS = "util-macros-native virtual/libx11"
 
-XORG_PN = "${PN}"
+INC_PR = "r5"
 
-SRC_URI = "${XORG_MIRROR}/individual/app/${XORG_PN}-${PV}.tar.bz2;name=archive"
+SRC_URI = "${XORG_MIRROR}/individual/app/${BPN}-${PV}.tar.bz2;name=archive"
 
-S = "${WORKDIR}/${XORG_PN}-${PV}"
+S = "${WORKDIR}/${BPN}-${PV}"
 
 inherit autotools pkgconfig
 
-FILES_${PN} += "  /usr/lib/X11/${XORG_PN}"
+FILES_${PN} += "  /usr/lib/X11/${BPN} /usr/share/X11/app-defaults/"

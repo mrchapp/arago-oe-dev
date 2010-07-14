@@ -13,13 +13,11 @@ PREFERRED_VERSION_glibc             ?= "2.10.1"
 PREFERRED_VERSION_glibc-initial     ?= "2.10.1"
 PREFERRED_VERSION_eglibc             ?= "2.11"
 PREFERRED_VERSION_eglibc-initial     ?= "2.11"
-PREFERRED_VERSION_uclibc            ?= "0.9.30.1"
-PREFERRED_VERSION_uclibc-initial    ?= "0.9.30.1"
+PREFERRED_UCLIBC_VERSION            ?= "0.9.31"
 
 # Some systems need a special gcc version
 PREFERRED_GCC_VERSION_486sx          ?= "4.3.2"
 PREFERRED_GCC_VERSION_avr32          ?= "4.2.2"
-PREFERRED_GCC_VERSION_armv7a         ?= "4.4.1" 
 PREFERRED_GCC_VERSION_bfin           ?= "4.1.2"
 PREFERRED_GCC_VERSION_xilinx-ml403   ?= "4.1.1"
 PREFERRED_GCC_VERSION_xilinx-ml403   ?= "4.1.1"
@@ -141,7 +139,7 @@ ENABLE_BINARY_LOCALE_GENERATION_armv7a = "0"
 #qemu has taken a dislike to armeb as well
 ENABLE_BINARY_LOCALE_GENERATION_armeb = "0"
 def detect_arm_abi (d):
-    	import bb
+	import bb
 	if bb.data.getVar('DISTRO_FEATURES',d) is None:
 		if bb.data.getVar('TARGET_ARCH', d, 1) in [ 'arm', 'armeb' ]:
 			return "oabi"
@@ -159,8 +157,8 @@ def compute_os_portion_of_target_triplet (d):
 	armv5te iwmmxt armv7a armv7 armv5teb armv4t"
 	ppc_spe_supporting_arches = "ppce500v2 ppce500"
 	gnu_suffix = ""
-  	if bb.data.getVar('LIBC', d, 1) == "uclibc":
-    		libc_suffix = "uclibc"
+	if bb.data.getVar('LIBC', d, 1) == "uclibc":
+		libc_suffix = "uclibc"
 	else:
 		libc_suffix = ""
 	
@@ -170,7 +168,7 @@ def compute_os_portion_of_target_triplet (d):
 		else:
 			os_suffix = "uclinux"
 	else:
-  		os_suffix = "linux"
+		os_suffix = "linux"
 	bparch = bb.data.getVar('BASE_PACKAGE_ARCH', d,1)
 
 	if bb.data.getVar('DISTRO_FEATURES',d,1) is not None and \

@@ -30,7 +30,8 @@ DEPLOY_DIR = "${TMPDIR}/deploy/${LIBC}"
 require conf/distro/include/angstrom-${LIBC}.inc
 
 # Set some java bits
-require conf/distro//include/sane-toolchain-java.inc
+require conf/distro/include/sane-toolchain-java.inc
+require conf/distro/include/angstrom-jalimo.conf
 
 # ARM920T and up can use thumb mode to decrease binary size at the expense of speed
 # (the complete story is a bit more nuanced due to cache starvation)
@@ -199,7 +200,7 @@ SEPPUKU_COMPONENT    = "org.openembedded.dev"
 OESTATS_SERVER      ?= "tinderbox.openembedded.org"
 
 # We want images supporting the following features (for task-base)
-DISTRO_FEATURES = "nfs smbfs wifi ppp alsa bluetooth ext2 vfat irda pcmcia usbgadget usbhost pci pam"
+DISTRO_FEATURES = "largefile ipv4 ipv6 nfs smbfs wifi ppp alsa bluetooth ext2 vfat irda pcmcia usbgadget usbhost pci pam"
 
 # Use-like features
 DISTRO_FEATURES += "tk"

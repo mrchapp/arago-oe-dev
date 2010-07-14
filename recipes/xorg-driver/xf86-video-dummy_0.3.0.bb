@@ -1,7 +1,7 @@
 require xorg-driver-video.inc
-PE = "1"
-
 DESCRIPTION = "X.Org X server -- dummy display driver"
+PE = "1"
+PR = "${INC_PR}.0"
 
 SRC_URI += "file://get-rid-of-host-includes.patch"
 SRC_URI[archive.md5sum] = "3d96297556846bee02a74166ffb5d052"

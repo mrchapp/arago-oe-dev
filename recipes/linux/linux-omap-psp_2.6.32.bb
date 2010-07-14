@@ -6,7 +6,7 @@ KERNEL_IMAGETYPE = "uImage"
 COMPATIBLE_MACHINE = "beagleboard|omap3evm|am3517-evm|dm3730-am3715-evm|omap3-touchbook|overo"
 
 # This is the v2.6.32_OMAPPSP_03.00.01.06 branch
-SRCREV = "627293ad28604b22612f9a4a318f64cfab241e22"
+SRCREV = "a6bad4464f985fdd3bed72e1b82dcbfc004d7869"
 
 # The main PR is now using MACHINE_KERNEL_PR, for omap3 see conf/machine/include/omap3.inc
 MACHINE_KERNEL_PR_append = "+gitr${SRCREV}"
@@ -56,6 +56,35 @@ SRC_URI = "git://arago-project.org/git/people/sriram/ti-psp-omap.git;protocol=gi
            file://0042-musb-allow-host-io-without-gadget-module.patch \
            file://0043-MTD-silence-ecc-errors-on-mtdblock0.patch \
            file://0044-ARM-OMAP-beagle-every-known-beagle-except-revB-uses-.patch \
+           file://0045-ARM-OMAP-beagle-add-support-for-beagleFPGA-expansion.patch \
+           file://cam/0001-mt9t111-first-stab-at-merging-sensor-driver-based-on.patch \
+           file://cam/0002-mt9t111-Fix-all-checkpatch-errors.patch \
+           file://cam/0003-mt9t111-Pass-v4l2_int_device-data.patch \
+           file://cam/0004-omap3beagle-Add-camera-support.patch \
+           file://cam/0005-TEMP-omap3beagle-camera-Add-defconfig.patch \
+           file://cam/0006-omap3beagle-camera-Add-support-for-regulators.patch \
+           file://cam/0007-TEMP-omap3beagle-cam-Enable-OMAP_MUX.patch \
+           file://cam/0008-omap3beagle-camera-Fix-null-pointer-dereference.patch \
+           file://cam/0009-Revert-TEMP-omap3beagle-cam-Enable-OMAP_MUX.patch \
+           file://cam/0010-omap3beagle-camera-Change-arch-late_initcall.patch \
+           file://cam/0011-omap3beagle-camera-Move-i2c-registration-to-the-main.patch \
+           file://cam/0012-ARM-OMAP3-make-camera-code-build-if-MT9T111-is-built.patch \
+           file://cam/0013-DEBUG-omap3beagle-camera-Force-mode0-in-cam_xclka.patch \
+           file://cam/0014-OMAP3-CLOCK-Add-capability-to-change-rate-of-dpll4_m.patch \
+           file://cam/0015-Revert-DEBUG-omap3beagle-camera-Force-mode0-in-cam_x.patch \
+           file://cam/0016-omap3beagle-camera-Fix-wrong-XCLKA-selection.patch \
+           file://cam/0017-omap3isp-set-CAM_MCLK-to-172.8-MHz-allows-exact-9.6-.patch \
+           file://cam/0018-Fix-Moved-MCLK-setting-to-the-board-file.patch \
+           file://cam/0019-omap3isp-core-Do-smarter-MCLK-setting.patch \
+           file://cam/0020-omap3beagle-camera-set-mclk-for-mt9t111.patch \
+           file://cam/0021-mt9t111-Fix-max-supported-xclk.patch \
+           file://cam/0022-omap3beagle-camera-Clarify-regulators-names.patch \
+           file://cam/0023-omap3beagle-camera-Fix-powerup-sequence.patch \
+           file://cam/0024-omap3beagle-camera-Change-vaux4-to-1.8v.patch \
+           file://cam/0025-omap3beagle-camera-Rename-regulators-to-match-actual.patch \
+           file://cam/0026-omap3beagle-camera-Complement-remainig-sensor-hw-con.patch \
+           file://cam/0027-mt9t111-Fix-detect-function-retval-and-cleanup-print.patch \
+           file://cam/0028-omap3beagle-camera-Set-padconf-settings-in-cam-init.patch \
            file://defconfig"
 
 SRC_URI_append_beagleboard = " file://logo_linux_clut224.ppm \

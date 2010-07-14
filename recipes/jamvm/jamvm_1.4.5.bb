@@ -1,6 +1,6 @@
 require jamvm.inc
 
-PR = "r3"
+PR = "r6"
 
 SRC_URI += "file://jamvm-1.3.1-size-defaults.patch"
 

@@ -61,13 +61,16 @@ def oe_popen(d, cmd, **kwargs):
             d.setVar("__oe_popen_env", env)
         kwargs["env"] = env
 
+    kwargs["close_fds"] = True
     kwargs["preexec_fn"] = subprocess_setup
 
     return Popen(cmd, **kwargs)
 
-def oe_system(d, cmd):
+def oe_system(d, cmd, **kwargs):
     """ Popen based version of os.system. """
-    return oe_popen(d, cmd, shell=True).wait()
+    if not "shell" in kwargs:
+        kwargs["shell"] = True
+    return oe_popen(d, cmd, **kwargs).wait()
 
 # for MD5/SHA handling
 def base_chk_load_parser(config_paths):
@@ -88,7 +91,9 @@ def setup_checksum_deps(d):
                          (depends, "shasum-native:do_populate_sysroot"))
 
 def base_chk_file_checksum(localpath, src_uri, expected_md5sum, expected_sha256sum, data):
-    strict_checking =  bb.data.getVar("OE_STRICT_CHECKSUMS", data, True)
+    strict_checking = True
+    if bb.data.getVar("OE_STRICT_CHECKSUMS", data, True) != "1":
+        strict_checking = False
     if not os.path.exists(localpath):
         localpath = base_path_out(localpath, data)
         bb.note("The localpath does not exist '%s'" % localpath)

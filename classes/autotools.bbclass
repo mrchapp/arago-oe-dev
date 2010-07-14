@@ -1,7 +1,7 @@
 # use autotools_stage_all for native packages
 AUTOTOOLS_NATIVE_STAGE_INSTALL = "1"
 
-def autotools_dep_prepend(d):
+def autotools_deps(d):
 	if bb.data.getVar('INHIBIT_AUTOTOOLS_DEPS', d, 1):
 		return ''
 
@@ -24,9 +24,9 @@ def autotools_dep_prepend(d):
 
 EXTRA_OEMAKE = ""
 
-DEPENDS_prepend = "${@autotools_dep_prepend(d)}"
-DEPENDS_virtclass-native_prepend = "${@autotools_dep_prepend(d)}"
-DEPENDS_virtclass-nativesdk_prepend = "${@autotools_dep_prepend(d)}"
+DEPENDS_prepend = "${@autotools_deps(d)}"
+DEPENDS_virtclass-native_prepend = "${@autotools_deps(d)}"
+DEPENDS_virtclass-nativesdk_prepend = "${@autotools_deps(d)}"
 
 inherit siteinfo
 
@@ -125,7 +125,11 @@ autotools_do_configure() {
 			    echo "no" | glib-gettextize --force --copy
 			  fi
 			else if grep "^[[:space:]]*AM_GNU_GETTEXT" $CONFIGURE_AC >/dev/null; then
-			  cp ${STAGING_DATADIR}/gettext/config.rpath ${S}/
+			  if [ -e ${STAGING_DATADIR}/gettext/config.rpath ]; then
+			    cp ${STAGING_DATADIR}/gettext/config.rpath ${S}/
+			  else
+			    oenote ${STAGING_DATADIR}/gettext/config.rpath not found. gettext is not installed.
+			  fi
 			fi
 
 			fi

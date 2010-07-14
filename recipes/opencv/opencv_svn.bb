@@ -6,13 +6,14 @@ LICENSE = "GPLv2"
 
 ARM_INSTRUCTION_SET = "arm"
 
-DEPENDS = "ffmpeg gtk+ libtool swig swig-native python jpeg zlib libpng tiff glib-2.0"
+DEPENDS = "ffmpeg gtk+ libtool swig swig-native python jpeg bzip2 zlib libpng tiff glib-2.0"
 
 SRC_URI = "svn://code.ros.org/svn/opencv/trunk;module=opencv;proto=https \
 "
 
-SRCREV = "3058"
+SRCREV = "3241"
 PV = "2.1.0+svnr${SRCPV}"
+PR = "r1"
 
 S = "${WORKDIR}/opencv"
 
@@ -65,4 +66,5 @@ RDEPENDS_python-opencv = "python-core"
 
 do_install_append() {
 	cp ${S}/include/opencv/*.h ${D}${includedir}/opencv/
+	sed -i '/blobtrack/d' ${D}${includedir}/opencv/cvaux.h
 }
