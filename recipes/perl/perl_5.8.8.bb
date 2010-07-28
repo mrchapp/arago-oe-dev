@@ -5,7 +5,7 @@ LICENSE = "Artistic|GPL"
 PRIORITY = "optional"
 # We need gnugrep (for -I)
 DEPENDS = "virtual/db perl-native grep-native"
-PR = "r34"
+PR = "r35"
 
 # Major part of version
 PVM = "5.8"
@@ -62,8 +62,8 @@ do_configure() {
         # Generate configuration
         rm -f config.sh-${TARGET_ARCH}-${TARGET_OS}
         for i in ${WORKDIR}/config.sh \
-                 ${WORKDIR}/config.sh-${@siteinfo_get_bits(d)} \
-                 ${WORKDIR}/config.sh-${@siteinfo_get_bits(d)}-${@siteinfo_get_endianess(d)}; do
+                 ${WORKDIR}/config.sh-${SITEINFO_BITS} \
+                 ${WORKDIR}/config.sh-${SITEINFO_BITS}-${SITEINFO_ENDIANNESS}; do
             cat $i >> config.sh-${TARGET_ARCH}-${TARGET_OS}
         done
 
@@ -135,7 +135,7 @@ do_install() {
                    -e "s,${STAGING_LIBDIR},${libdir},g" \
                    -e "s,${STAGING_BINDIR},${bindir},g" \
                    -e "s,${STAGING_INCDIR},${includedir},g" \
-                   -e "s,${CROSS_DIR}${base_bindir}/,,g" \
+                   -e "s,${STAGING_DIR_NATIVE}${prefix_native}${base_bindir}/,,g" \
                 ${D}${bindir}/h2xs \
                 ${D}${bindir}/h2ph \
                 ${D}${datadir}/perl/${PV}/pod/*.pod \

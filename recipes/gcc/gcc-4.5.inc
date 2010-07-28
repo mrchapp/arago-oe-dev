@@ -8,9 +8,9 @@ DEPENDS = "mpfr gmp libmpc libelf"
 NATIVEDEPS = "mpfr-native gmp-native libmpc-native"
 
 
-INC_PR = "r5"
+INC_PR = "r6"
 
-SRCREV = "162000"
+SRCREV = "162398"
 PV = "4.5"
 # BINV should be incremented after updating to a revision
 # after a minor gcc release (e.g. 4.5.1 or 4.5.2) has been made
@@ -30,6 +30,7 @@ SRC_URI = "svn://gcc.gnu.org/svn/gcc/branches;module=${BRANCH} \
 	   file://gcc-flags-for-build.patch \
 	   file://libstdc++-emit-__cxa_end_cleanup-in-text.patch \
 	   file://arm-bswapsi2.patch \
+	   file://gcc-pr43698-arm-rev-instr.patch \
 	  "
 
 # Language Overrides

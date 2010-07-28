@@ -40,9 +40,6 @@ python () {
     # These classes encode staging paths into the binary data so can only be
     # reused if the path doesn't change/
     if bb.data.inherits_class('native', d) or bb.data.inherits_class('cross', d) or bb.data.inherits_class('sdk', d) or bb.data.inherits_class('crosssdk', d):
-        path = bb.data.getVar('PSTAGE_PKGPATH', d, 1)
-        path = path + bb.data.getVar('TMPDIR', d, 1).replace('/', '-')
-        bb.data.setVar('PSTAGE_PKGPATH', path, d)
         scan_cmd = "grep -Irl ${STAGING_DIR} ${PSTAGE_TMPDIR_STAGE}"
         bb.data.setVar('PSTAGE_SCAN_CMD', scan_cmd, d)
 
@@ -130,7 +127,6 @@ def pstage_cleanpackage(pkgname, d):
 	else:
 		bb.debug(1, "Manually removing any installed files from staging...")
 		pstage_manualclean("sysroots", "STAGING_DIR", d)
-		pstage_manualclean("cross", "CROSS_DIR", d)
 		pstage_manualclean("deploy", "DEPLOY_DIR", d)
 
 	bb.utils.unlockfile(lf)
@@ -307,7 +303,6 @@ python packagedstage_stampfixing_eventhandler() {
 populate_sysroot_preamble () {
 	if [ "$PSTAGING_ACTIVE" = "1" ]; then
 		stage-manager -p ${STAGING_DIR} -c ${PSTAGE_WORKDIR}/stamp-cache-staging -u || true
-		stage-manager -p ${CROSS_DIR} -c ${PSTAGE_WORKDIR}/stamp-cache-cross -u || true
 	fi
 }
 
@@ -323,7 +318,6 @@ populate_sysroot_postamble () {
 		if [ "$exitcode" != "5" -a "$exitcode" != "0" ]; then
 			exit $exitcode
 		fi
-		stage-manager -p ${CROSS_DIR} -c ${PSTAGE_WORKDIR}/stamp-cache-cross -u -d ${PSTAGE_TMPDIR_STAGE}/cross/${BASE_PACKAGE_ARCH}
 		if [ "$exitcode" != "5" -a "$exitcode" != "0" ]; then
 			exit $exitcode
 		fi
@@ -334,9 +328,7 @@ populate_sysroot_postamble () {
 packagedstaging_fastpath () {
 	if [ "$PSTAGING_ACTIVE" = "1" ]; then
 		mkdir -p ${PSTAGE_TMPDIR_STAGE}/sysroots/
-		mkdir -p ${PSTAGE_TMPDIR_STAGE}/cross/${BASE_PACKAGE_ARCH}/
 		cp -fpPR ${SYSROOT_DESTDIR}/${STAGING_DIR}/* ${PSTAGE_TMPDIR_STAGE}/sysroots/ || /bin/true
-		cp -fpPR ${SYSROOT_DESTDIR}/${CROSS_DIR}/* ${PSTAGE_TMPDIR_STAGE}/cross/${BASE_PACKAGE_ARCH}/ || /bin/true
 	fi
 }
 
