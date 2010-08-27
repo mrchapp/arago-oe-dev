@@ -329,6 +329,14 @@ Recipes:    anthy, nunome, uim*, granule, qpobox*, qte-font-unifont*
 Recipes:    qpf-unismall, qpobox, poboxserver, imkit*, scim, zten
 Recipes:    eb*, tomoe, offline-wikipedia
 
+Person:     Roman I Khimov
+Mail:       khimov@altell.ru
+Mail:       roman@khimov.ru
+Website:    http://roman.khimov.ru
+Recipes:    clamav, cluster-glue, cluster-resource-agents, conntrack-tools
+Recipes:    ethtool, libhtp, openais, pacemaker, ragel-native, squid
+Recipes:    squidguard, suricata
+
 Person:     Sergey Lapin
 Mail:       slapin@ossfans.org
 Machines:   palm*, afeb9260
@@ -344,6 +352,13 @@ Mail:       stefan@datenfreihafen.org
 Website:    http://www.datenfreihafen.org/
 Machines:   om-gta02, a1200, a780, rokre2, sgh-i900, palmpre, imote2, bug20
 Interest:   Linux mobile phones
+
+Person:     Simon Busch
+Mail:       morphis@gravedo.de
+Website:    http://mm.gravedo.de/
+Machines:   om-gta02, palmpre
+Interest:   Linux mobile phones
+Recipes:    msmcomm*
 
 Person:     Steffen Sledz
 Mail:       sledz@dresearch.de

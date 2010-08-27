@@ -1,7 +1,7 @@
 require linux.inc
 require linux-openmoko.inc
 
-KERNEL_RELEASE="2.6.34.2"
+KERNEL_RELEASE="2.6.34.6"
 
 SRCREV = "3f6725d43021d2d7597027e36020df5b44d0667e"
 OEV = "oe4.6"
@@ -26,6 +26,7 @@ SRC_URI = "\
   file://0007-Fix-claim-of-2D-register-resource.patch \
   file://0008-Use-unlocked_ioctl-rather-than-ioctl.patch \
   file://0001-glamo-display-Enable-FIFO-stage-for-the-LCD-engine-s.patch \
+  file://0009-glamo-display-fix-WSOD-for-242-timming.patch \
 # patches from Radek Polak used in qtmoko
   file://0001-accels.patch.patch \
   file://0002-usbhost.patch.patch \
@@ -36,8 +37,8 @@ SRC_URI = "\
   file://defconfig \
 "
 
-SRC_URI[stablepatch.md5sum] = "6ce06c43ddb9cd557cbbd25d4e0d0033"
-SRC_URI[stablepatch.sha256sum] = "7dda0d094a3daccb9b51e33f074efa10e3e4f2fa1489194b3564bbb93b86a567"
+SRC_URI[stablepatch.md5sum] = "49d8234d88bba062edcab19fd0ee28b4"
+SRC_URI[stablepatch.sha256sum] = "a62e9392ad435948ea4ea2cce12e60e042da6e6da806691936ba50bbaa0dc8cc"
 
 S = "${WORKDIR}/git"
 

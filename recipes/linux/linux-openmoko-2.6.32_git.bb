@@ -1,7 +1,7 @@
 require linux.inc
 require linux-openmoko.inc
 
-KERNEL_RELEASE="2.6.32.17"
+KERNEL_RELEASE="2.6.32.21"
 
 SRCREV = "a9254be10ac2294ea20165a87c09ea6afcf66d94"
 OEV = "oe3.3"
@@ -39,11 +39,13 @@ SRC_URI = "\
   file://0018-glamo-core-initialize-engine-states-as-disabled.patch \
 # faster glamo
   file://0020-mfd-glamo-Enable-FIFO-stage-for-the-LCD-engine-s-mem.patch \
+  file://0021-glamo-display-fix-WSOD-for-242-timming.patch \
   file://defconfig \
 "
 
-SRC_URI[stablepatch.md5sum] = "ca9a0f5c28803e9231dc9ee5b0faa863"
-SRC_URI[stablepatch.sha256sum] = "823a3c2d8d76e4c7d278999a11c274ffb28a0d25a45b24bc95c5bee7ec192ee3"
+SRC_URI[stablepatch.md5sum] = "29aa10a231882a6e52908642b572326f"
+SRC_URI[stablepatch.sha256sum] = "88e579f74f95ffac30d9d011be98c83e67cf348b9937d2131514a0874bb4413f"
+
 
 S = "${WORKDIR}/git"
 

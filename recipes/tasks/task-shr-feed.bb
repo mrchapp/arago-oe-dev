@@ -1,5 +1,5 @@
 DESCRIPTION = "SHR Feed"
-PR = "r67"
+PR = "r72"
 PV = "1.0"
 LICENSE = "GPL"
 
@@ -19,6 +19,7 @@ RDEPENDS_${PN} += "\
 		dosbox \
 		enotes \
 		epdfview \
+		mupdf \
 		estardict \
 		evopedia \
 		fbreader \
@@ -244,8 +245,8 @@ RDEPENDS_${PN} += "\
 		aceofpenguins-launcher \
 		om-neon \
 		ipython \
-#		phoneme-advanced-foundation \
-#		eve was killed in svnr45979
+ 		phoneme-advanced-foundation \
+		eve \
 		python-pybluez \
 		x11perf \
 		pyring \
@@ -301,6 +302,10 @@ RDEPENDS_${PN} += "\
 		neomis \
 		supertux-qvga \
 		wesnoth \
+		mokosuite2 \
+		mokowm-imf-ecore \
+		atrack \
+		minneo \
 "
 
 # this is only usefull on gta02 and on other devices it's trying to pull mesa-dri (not respecting DEFAULT_PROVIDER for virtual/libgl)
