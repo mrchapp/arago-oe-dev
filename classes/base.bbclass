@@ -202,10 +202,14 @@ do_unpack[dirs] = "${WORKDIR}"
 python base_do_unpack() {
     from glob import glob
 
-    srcurldata = bb.fetch.init(d.getVar("SRC_URI", True).split(), d, True)
+    src_uri = d.getVar("SRC_URI", True)
+    if not src_uri:
+        return
+    srcurldata = bb.fetch.init(src_uri.split(), d, True)
     filespath = d.getVar("FILESPATH", True).split(":")
 
-    for url, urldata in srcurldata.iteritems():
+    for url in src_uri.split():
+        urldata = srcurldata[url]
         if urldata.type == "file" and "*" in urldata.path:
             # The fetch code doesn't know how to handle globs, so
             # we need to handle the local bits ourselves
@@ -338,7 +342,7 @@ python () {
             this_machine = bb.data.getVar('MACHINE', d, 1)
             if this_machine and not re.match(need_machine, this_machine):
                 this_soc_family = bb.data.getVar('SOC_FAMILY', d, 1)
-                if this_soc_family and not re.match(need_machine, this_soc_family):
+                if (this_soc_family and not re.match(need_machine, this_soc_family)) or not this_soc_family:
                     raise bb.parse.SkipPackage("incompatible with machine %s" % this_machine)
 
         need_target = bb.data.getVar('COMPATIBLE_TARGET_SYS', d, 1)
