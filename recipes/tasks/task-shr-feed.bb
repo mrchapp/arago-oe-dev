@@ -1,5 +1,5 @@
 DESCRIPTION = "SHR Feed"
-PR = "r76"
+PR = "r77"
 PV = "1.0"
 LICENSE = "GPL"
 
@@ -158,7 +158,6 @@ RDEPENDS_${PN} += "\
 		synergy \
 		irssi \
 		zhone \
-		paroli \
 		cu \
 		net-tools \
 		iproute2 \
@@ -278,8 +277,6 @@ RDEPENDS_${PN} += "\
 		make \
 		dnsmasq \
 		libsyncml \
-		qi \
-		qi-ubi \
 		wpa-gui \
 		iliwi \
 		gabriel \
@@ -310,6 +307,7 @@ RDEPENDS_${PN} += "\
 		gnuplot \
 		galculator \
 		xterm \
+		ca-certificates \
 "
 
 # this is only usefull on gta02 and on other devices it's trying to pull mesa-dri (not respecting DEFAULT_PROVIDER for virtual/libgl)
