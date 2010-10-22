@@ -34,6 +34,8 @@ cat files-sorted files-unsorted | sort | uniq -d > files-duplicate
 echo "Removing duplicate packages in unsorted"
 cat files-duplicate | xargs rm -f
 
+for i in $(find . -name "*.ipk") ; do basename $i ; done > files-sorted-new
+
 # Log remaining packages to a file 
 find . -name "*.ipk" |grep -v dbg | grep -v -- -dev | grep -v -- -doc | grep -v -- -static | grep -v angstrom-version | grep -v locale > new-files.txt
 for newfile in $(cat new-files.txt | sed s:./::g) ; do
@@ -56,7 +58,7 @@ case "$arch" in
 	"armv5teb")
 			machines="fsg3be ixp4xxbe nslu2be" ;;
 	"armv6")
-			machines="bug iphone mx31ads mx31moboard mini6410 nokia800 om-3d7k omap2420h4 omap2430sdp smartq5 smartqv7 smdk6410" ;;
+			machines="bug iphone mx31ads mx31moboard mini6410 nokia800 omap2420h4 omap2430sdp smartq5 smartqv7 smdk6410" ;;
 	"armv6-novfp")
 			machines="htcblackstone htcdiamond htcdream htckaiser htcnike htcpolaris htcraphael htctitan htcvogue" ;;
 	"armv7a")
@@ -189,14 +191,15 @@ for arch in 486sx armv4t armv4 armv5teb armv5te armv6-novfp armv6 armv7a avr32 b
 done
 
 if [ "$1" != "--skip-sorted-list" ]; then
-    echo "Updating list of sorted packages (takes long)"
-    for i in $(find ../ -name "*.ipk"| grep -v unsorted) ; do basename $i ; done > files-sorted-new
+    echo "Updating list of sorted packages"
 	cat files-sorted files-sorted-new | sort | uniq > files-sorted-tmp
 	mv files-sorted-tmp files-sorted
 	rm files-sorted-*
 fi
 
-( cd ~/website/repo-updater ; rm -f feeds.db* ; php update.php ; rm ../repo/feeds.db* ; cp feeds.db* ../repo )
+if [ "$1" != "--skip-repo-update" ]; then
+	( cd ~/website/repo-updater ; rm -f feeds.db* ; php update.php ; rm ../repo/feeds.db* ; cp feeds.db* ../repo )
+fi
 
 echo -n "Stripping source lines from Package files"
 for i in `find .. -name Packages` ; do grep -v ^Source: $i|gzip -c9>$i.gz ;gunzip -c $i.gz>$i ; touch $i.sig ; done

@@ -1,3 +1,7 @@
+DESCRIPTION = "plugins for mythtv: A full featured personal video recorder system."
+HOMEPAGE = "http://www.mythtv.org"
+LICENSE = "GPLv2"
+
 DEPENDS = "flac taglib mythtv libvorbis libexif libvisual libsdl-x11 libcdaudio cdparanoia"
 RDEPENDS_${PN} = "mytharchive mythbrowser mythgallery mythgame mythmovies  \
                   mythmusic mythnetvision mythnews mythvideo mythweather mythzoneminder"
@@ -9,7 +13,7 @@ RDEPENDS_mythweb-apache = "apache2"
 
 DEPENDS_mythweb-lighttpd = "mythweb"
 RDEPENDS_mythweb-lighttpd = "lighttpd lighttpd-module-cgi lighttpd-module-fastcgi \
-        lighttpd-module-rewrite php-cgi lighttpd-module-auth"
+        lighttpd-module-rewrite php-cgi lighttpd-module-auth sed"
 
 RDEPENDS_mythnetvision += " python python-mysqldb "
 
@@ -22,7 +26,7 @@ DEPENDS += " libxml-xpath-perl-native libxml-simple-perl-native libdatetime-form
 RDEPENDS_mythweather += " libxml-xpath-perl libxml-simple-perl libdatetime-format-iso8601-perl \
 	libsoap-lite-perl libimage-size-perl libdate-manip-perl "
 
-PR = "svnr${SRCPV}+r4"
+PR = "svnr${SRCPV}+r5"
 PV = "0.23"
 
 SRCREV = "25609"
@@ -64,12 +68,12 @@ do_install () {
         install -d  ${D}${sysconfdir}/
         install -d  ${D}${sysconfdir}/apache2
         install -d  ${D}${sysconfdir}/apache2/extra
-        cp -r ${S}/mythweb/* ${D}/${datadir}/apache2/htdocs/
+        cp -R ${S}/mythweb/* ${D}/${datadir}/apache2/htdocs/
         mv ${S}/mythweb/mythweb.conf.apache ${D}${sysconfdir}/apache2/extra/mythweb.conf
         sed -i -e s:/var/www/html:/usr/share/apache2/htdocs:g ${D}${sysconfdir}/apache2/extra/mythweb.conf
         install -d  ${D}/www
         install -d  ${D}/www/pages
-        cp -r ${S}/mythweb/* ${D}/www/pages/
+        cp -R ${S}/mythweb/* ${D}/www/pages/
         mv ${S}/mythweb/mythweb.conf.lighttpd ${D}${sysconfdir}/mythweb.conf
         sed -i -e s:/var/www/html:/www/pages:g ${D}${sysconfdir}/mythweb.conf
 }
@@ -86,6 +90,11 @@ pkg_postinst_mythweb-lighttpd () {
         chmod g+rw /var/www/pages
         grep mythweb.conf /etc/lighttpd.conf || \
                 echo "include \"mythweb.conf\"" >>/etc/lighttpd.conf
+	sed -i 's:#\( *mod_cgi\):\1:' /etc/lighttpd.conf
+	sed -i 's:#\( *mod_fastcgi\):\1:' /etc/lighttpd.conf
+	sed -i 's:#\( *mod_rewrite\):\1:' /etc/lighttpd.conf
+	sed -i 's:#\( *mod_auth\):\1:' /etc/lighttpd.conf
+	sed -i 's:/var/run/lighttpd/mythtv-php-fcgi.socket:/var/run/mythtv-php-fcgi.socket:' /etc/mythweb.conf
 }
 
 PACKAGES =+ " \

@@ -15,13 +15,15 @@ require ti-paths.inc
 require ti-staging.inc
 
 # Rebuild on kernel change since it links statically to ti-dmai, ti-codec-engine, etc
-PR = "r75+${MACHINE_KERNEL_PR}"
+PR = "r81+${MACHINE_KERNEL_PR}"
 
 DEPENDS = "ti-dmai gstreamer gst-plugins-base"
 
-# enable c6accel elements on omapl138
+# enable c6accel elements on omapl138 and omap3
 DEPENDS_append_omapl138 = " ti-c6accel "
 EXTRA_OECONF_omapl138 = "--enable-c6accel"
+DEPENDS_append_omap3 = " ti-c6accel "
+EXTRA_OECONF_omap3 = "--enable-c6accel"
 export C6ACCEL_INSTALL_DIR
 
 # gstreamer_ti picks up some config variables from the environment
@@ -84,14 +86,14 @@ do_install_prepend () {
     install -d ${D}/${installdir}/gst/${PLATFORM}
 
     # copy gstreamer demo scripts
-    cp -r ${WORKDIR}/gstreamer_ti/gstreamer_demo/shared ${D}/${installdir}/gst
+    cp -R ${WORKDIR}/gstreamer_ti/gstreamer_demo/shared ${D}/${installdir}/gst
 
     # If we have loadmodules.sh in WORKDIR then give preference to this over
     # the default gst-ti loadmdules.sh
     if [ -f ${WORKDIR}/loadmodules.sh ]; then
        cp ${WORKDIR}/loadmodules.sh ${D}/${installdir}/gst/${PLATFORM}
     else
-       cp -r ${WORKDIR}/gstreamer_ti/gstreamer_demo/${PLATFORM} ${D}/${installdir}/gst
+       cp -R ${WORKDIR}/gstreamer_ti/gstreamer_demo/${PLATFORM} ${D}/${installdir}/gst
     fi   
 
     # delete .svn files

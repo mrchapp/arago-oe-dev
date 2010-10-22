@@ -116,7 +116,7 @@ def get_eglibc_fpu_setting(bb, d):
 EXTRA_OECONF += "${@get_eglibc_fpu_setting(bb, d)}"
 EXTRA_OEMAKE += "rootsbindir=${base_sbindir}"
 
-OVERRIDES_append = ":${TARGET_ARCH}-${TARGET_OS}"
+OVERRIDES_prepend = "${TARGET_ARCH}-${TARGET_OS}:"
 
 do_configure_prepend() {
         sed -e "s#@BASH@#/bin/sh#" -i ${S}/elf/ldd.bash.in
@@ -351,7 +351,9 @@ python package_do_split_gconvs () {
 		else:
 		    glibc_name = name
 		bb.data.setVar('RDEPENDS_%s' % pkgname, legitimize_package_name('eglibc-binary-localedata-%s' % glibc_name), d)
-		bb.data.setVar('RPROVIDES_%s' % pkgname, 'glibc-binary-localedata-%s' % glibc_name, d)
+		rprovides = bb.data.getVar("RPROVIDES_%s" % pkgname, d, 1)
+		rprovides += ' glibc-binary-localedata-%s' % glibc_name
+		bb.data.setVar('RPROVIDES_%s' % pkgname, rprovides, d)
 
 	def output_locale_binary(name, pkgname, locale, encoding):
 		# This is a hack till linux-libc-headers gets patched for the missing arm syscalls and all arm device kernels as well

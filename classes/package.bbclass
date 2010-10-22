@@ -278,7 +278,9 @@ def write_package_md5sums (root, outfile, ignorepaths):
 #
 
 def get_package_mapping (pkg, d):
-	data = read_subpkgdata(pkg, d)
+	import oe.packagedata
+
+	data = oe.packagedata.read_subpkgdata(pkg, d)
 	key = "PKG_%s" % pkg
 
 	if key in data:
@@ -354,15 +356,15 @@ python package_do_split_locales() {
 }
 
 python perform_packagecopy () {
-	dest = bb.data.getVar('D', d, True)
-	dvar = bb.data.getVar('PKGD', d, True)
+	installdest = bb.data.getVar('D', d, True)
+	pkgcopy = bb.data.getVar('PKGD', d, True)
 
-	bb.mkdirhier(dvar)
+	bb.mkdirhier(pkgcopy)
 
 	# Start by package population by taking a copy of the installed 
 	# files to operate on
-	os.system('rm -rf %s/*' % (dvar))
-	os.system('cp -pPR %s/* %s/' % (dest, dvar))
+	os.system('rm -rf %s/*' % (pkgcopy))
+	os.system('cp -pPR %s/. %s/' % (installdest, pkgcopy))
 }
 
 python populate_packages () {
