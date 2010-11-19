@@ -73,15 +73,12 @@ class PatchTree(PatchSet):
         self.patches.insert(i, patch)
 
     def _applypatch(self, patch, force = False, reverse = False, run = True):
-        shellcmd = ["patch", "-p%s" % patch['strippath']]
+        shellcmd = ["patch", "-p%s" % patch['strippath'], "-f"]
         if reverse:
             shellcmd.append('-R')
 
         if not run:
             return subprocess.list2cmdline(shellcmd)
-
-        if force:
-            shellcmd.append('-f')
 
         patch = open(patch['file'], "r")
         return oe.process.run(shellcmd, cwd=self.dir, env=self.env, stdin=patch)
@@ -132,8 +129,8 @@ class GitApplyTree(PatchTree):
 
 class QuiltTree(PatchSet):
     def _runcmd(self, args, run = True):
-        quiltrc = bb.data.getVar('QUILTRCFILE', self.d, 1)
-        cmdline = ["quilt", "--quiltrc", quiltrc] + args
+        quiltrc = bb.data.getVar('QUILTRCFILE', self.d, 1) or '-'
+        cmdline = ["quilt", "--quiltrc=%s" % quiltrc] + args
         if not run:
             return subprocess.list2cmdline(cmdline)
         oe.process.run(cmdline, cwd=self.dir, env=self.env)

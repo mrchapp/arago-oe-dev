@@ -6,8 +6,8 @@ DEPENDS = "mokowm elementary libfakekey libfreesmartphone-glib libphone-utils eg
 SECTION = "misc/utils"
 
 PV = "1.0.99+gitr${SRCPV}"
-PR = "r1"
-SRCREV = "1c6991e72be0969042ac5cce8c257637bc1885b4"
+PR = "r2"
+SRCREV = "4df87c5066e260ec7a155554e3e55201cd08d206"
 
 SRC_URI = "git://gitorious.org/mokosuite2/appbunch.git;protocol=git"
 S = "${WORKDIR}/git"

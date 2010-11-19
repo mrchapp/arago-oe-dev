@@ -1,5 +1,5 @@
 DESCRIPTION = "SHR Feed"
-PR = "r80"
+PR = "r84"
 PV = "1.0"
 LICENSE = "GPL"
 
@@ -65,6 +65,7 @@ RDEPENDS_${PN} += "\
 		shr-splash-theme-handy \
 		shr-splash-theme-tux \
 		shr-splash-theme-logo \
+		shr-splash-theme-openmoko \
 		vagalume \
 		wireshark \
 		x11vnc \
@@ -102,6 +103,7 @@ RDEPENDS_${PN} += "\
 		vim \
 		vpnc \
 		emacs-x11 \
+		mg \
 		mcabber \
 		gdb \
 		oh-puzzles \
@@ -171,10 +173,6 @@ RDEPENDS_${PN} += "\
 		wmiconfig \
 		netkit-telnet \
 		bind-utils \
-		bubble-keyboard \
-		intuition \
-		gridpad \
-#		essential-dialer \
 		font-adobe-100dpi \
 		font-adobe-75dpi \
 		font-adobe-utopia-100dpi \
@@ -312,6 +310,10 @@ RDEPENDS_${PN} += "\
 		ca-certificates \
 		inkspill \
 		dns2tcp \
+		efm-nav \
+		efm-path \
+		efm-pathbar \
+		setxkbmap \
 "
 
 # this is only usefull on gta02 and on other devices it's trying to pull mesa-dri (not respecting DEFAULT_PROVIDER for virtual/libgl)

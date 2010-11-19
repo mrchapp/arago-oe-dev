@@ -44,6 +44,10 @@ do_configure () {
 		os=linux
 	elif [ "x$os" = "xlinux-gnueabi" ]; then
 		os=linux
+	elif [ "x$os" = "xlinux-uclibcspe" ]; then
+		os=linux
+	elif [ "x$os" = "xlinux-gnuspe" ]; then
+		os=linux
 	fi
 	target="$os-${HOST_ARCH}"
 	case $target in
@@ -77,9 +81,6 @@ do_configure () {
 	linux-powerpc)
 		target=linux-ppc
 		;;
-	linux-gnuspe-powerpc)
-		target=linux-ppc
-		;;
 	linux-supersparc)
 		target=linux-sparcv8
 		;;
@@ -93,7 +94,7 @@ do_configure () {
 	# inject machine-specific flags
 	sed -i -e "s|^\(\"$target\",\s*\"[^:]\+\):\([^:]\+\)|\1:${CFLAG}|g" Configure
         useprefix=${prefix}
-        if [ "x$useprefix" == "x" ]; then
+        if [ "x$useprefix" = "x" ]; then
                 useprefix=/
         fi        
 	perl ./Configure shared --prefix=$useprefix --openssldir=${libdir}/ssl $target

@@ -2,9 +2,10 @@ DESCRIPTION = "Universal Hardware Driver for Ettus Research products."
 HOMEPAGE = "http://www.ettus.com"
 LICENSE = "GPLV3+"
 
-DEPENDS = "python-cheetah-native boost libusb1"
+DEPENDS = "git-native python-cheetah-native boost libusb1 uhd-firmware"
+RDEPENDS_${PN} += "uhd-firmware"
 
-INC_PR = "r1"
+INC_PR = "r3"
 
 inherit cmake
 
