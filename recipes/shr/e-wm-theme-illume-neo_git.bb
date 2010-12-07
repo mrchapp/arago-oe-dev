@@ -8,8 +8,8 @@ RSUGGESTS_${PN} = "elementary-theme-neo gtk-theme-neo gpe-theme-neo icon-theme-n
 PACKAGE_ARCH = "all"
 LICENCE = "unknown"
 
-SRCREV = "bed3a9ac381b88717b153012fa4b9da0c860c6b0"
-PV = "0.1-${EFL_SRCREV}+gitr${SRCPV}"
+SRCREV = "c2443c4052997045f8862462a06a5b07dce42cb5"
+PV = "0.2+gitr${SRCPV}"
 PR = "r4"
 
 SRC_URI = "git://git.shr-project.org/repo/shr-themes.git;protocol=http;branch=master"

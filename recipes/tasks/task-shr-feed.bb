@@ -1,5 +1,5 @@
 DESCRIPTION = "SHR Feed"
-PR = "r84"
+PR = "r86"
 PV = "1.0"
 LICENSE = "GPL"
 
@@ -79,7 +79,6 @@ RDEPENDS_${PN} += "\
 		mtpaint \
 		telepathy-python \
 		intone-video \
-		ipkg-link \
 		ipkg-utils \
 		mysql \
 		fltk-chess \
@@ -314,6 +313,8 @@ RDEPENDS_${PN} += "\
 		efm-path \
 		efm-pathbar \
 		setxkbmap \
+		enjoy \
+		shr-theme-efenniht \
 "
 
 # this is only usefull on gta02 and on other devices it's trying to pull mesa-dri (not respecting DEFAULT_PROVIDER for virtual/libgl)
