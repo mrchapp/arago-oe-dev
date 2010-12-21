@@ -66,7 +66,7 @@ PREFERRED_VERSION_qt4-x11-free-gles = "${ANGSTROM_QT_VERSION}"
 PREFERRED_VERSION_samba		= "3.3.9"
 PREFERRED_VERSION_tiff 		= "3.9.4+4.0.0beta6"
 
-PREFERRED_VERSION_udev 		= "154"
+PREFERRED_VERSION_udev 		= "165"
 PREFERRED_VERSION_udev_libc-uclibc = "141"
 UDEV_GE_141 = "1"
 
@@ -75,7 +75,6 @@ PREFERRED_VERSION_wpa-supplicant = "0.6.9"
 PREFERRED_VERSION_wget = "1.11.4"
 PREFERRED_VERSION_xserver-common = "1.33"
 PREFERRED_VERSION_xserver-kdrive = "1.4.0.90"
-PREFERRED_VERSION_xserver-xorg = "1.8.1"
 
 #
 # meta-moblin package SRCREVs
