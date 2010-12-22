@@ -232,25 +232,48 @@ python base_do_unpack() {
             oe_unpack(d, local, urldata)
 }
 
+python old_bitbake_messages () {
+    version = [int(c) for c in bb.__version__.split('.')]
+    if version >= [1, 9, 0]:
+        return
+
+    from bb.event import BuildBase, DepBase
+    from bb.build import TaskBase
+
+    name = bb.event.getName(e)
+    if isinstance(e, TaskBase):
+        pf = bb.data.getVar('PF', e.data, True)
+        msg = 'package %s: task %s: %s' % (pf, e.task, name[4:].lower())
+    elif isinstance(e, BuildBase):
+        msg = 'build %s: %s' % (e.name, name[5:].lower())
+    elif isinstance(e, DepBase):
+        msg = 'package %s: dependency %s %s' % (e.pkg, e.dep, name[:-3].lower())
+    else:
+        return
+
+    bb.note(msg)
+}
+addhandler old_bitbake_messages
+
 python build_summary() {
-	from bb import note, error, data
-	from bb.event import getName
+    from bb import note, error, data
+    from bb.event import getName
 
-	if isinstance(e, bb.event.BuildStarted):
-		bb.data.setVar( 'BB_VERSION', bb.__version__, e.data )
-		statusvars = bb.data.getVar("BUILDCFG_VARS", e.data, 1).split()
-		statuslines = ["%-17s = \"%s\"" % (i, bb.data.getVar(i, e.data, 1) or '') for i in statusvars]
-		statusmsg = "\n%s\n%s\n" % (bb.data.getVar("BUILDCFG_HEADER", e.data, 1), "\n".join(statuslines))
-		print statusmsg
+    if isinstance(e, bb.event.BuildStarted):
+        bb.data.setVar( 'BB_VERSION', bb.__version__, e.data )
+        statusvars = bb.data.getVar("BUILDCFG_VARS", e.data, 1).split()
+        statuslines = ["%-17s = \"%s\"" % (i, bb.data.getVar(i, e.data, 1) or '') for i in statusvars]
+        statusmsg = "\n%s\n%s\n" % (bb.data.getVar("BUILDCFG_HEADER", e.data, 1), "\n".join(statuslines))
+        bb.plain(statusmsg)
 
-		needed_vars = bb.data.getVar("BUILDCFG_NEEDEDVARS", e.data, 1).split()
-		pesteruser = []
-		for v in needed_vars:
-			val = bb.data.getVar(v, e.data, 1)
-			if not val or val == 'INVALID':
-				pesteruser.append(v)
-		if pesteruser:
-			bb.fatal('The following variable(s) were not set: %s\nPlease set them directly, or choose a MACHINE or DISTRO that sets them.' % ', '.join(pesteruser))
+        needed_vars = bb.data.getVar("BUILDCFG_NEEDEDVARS", e.data, 1).split()
+        pesteruser = []
+        for v in needed_vars:
+            val = bb.data.getVar(v, e.data, 1)
+            if not val or val == 'INVALID':
+                pesteruser.append(v)
+        if pesteruser:
+            bb.fatal('The following variable(s) were not set: %s\nPlease set them directly, or choose a MACHINE or DISTRO that sets them.' % ', '.join(pesteruser))
 }
 addhandler build_summary
 
@@ -287,6 +310,9 @@ base_do_package() {
 addtask build
 do_build = ""
 do_build[func] = "1"
+do_build() {
+       :
+}
 
 def set_multimach_arch(d):
     # 'multimachine' handling
