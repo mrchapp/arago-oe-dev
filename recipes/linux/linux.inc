@@ -45,6 +45,7 @@ KERNEL_DEVICETREE_mpc8323e-rdb = "arch/${ARCH}/boot/dts/mpc832x_rdb.dts"
 KERNEL_DEVICETREE_mpc8544ds = "arch/${ARCH}/boot/dts/mpc8544ds.dts"
 KERNEL_DEVICETREE_mpc8641-hpcn = "arch/${ARCH}/boot/dts/mpc8641_hpcn.dts"
 KERNEL_DEVICETREE_p1020rdb = "arch/${ARCH}/boot/dts/p1020rdb.dts"
+KERNEL_DEVICETREE_p2020rdb = "arch/${ARCH}/boot/dts/p2020rdb.dts"
 KERNEL_DEVICETREE_p2020ds = "arch/${ARCH}/boot/dts/p2020ds.dts"
 KERNEL_DEVICETREE_sequoia = "arch/${ARCH}/boot/dts/sequoia.dts"
 KERNEL_DEVICETREE_tqm8540 = "arch/${ARCH}/boot/dts/tqm8540.dts"
@@ -53,6 +54,7 @@ KERNEL_DEVICETREE_xilinx-ml507 = "arch/${ARCH}/boot/dts/virtex440-ml507.dts"
 KERNEL_DEVICETREE_FLAGS = "-R 8 -S 0x3000"
 
 CORTEXA8FIXUP ?= "yes"
+LOCALVERSION ?= ""
 
 python __anonymous () {
 
@@ -134,7 +136,7 @@ do_configure_prepend() {
             -e '/CONFIG_LOCALVERSION_AUTO/d' \
 	    < '${WORKDIR}/defconfig' >>'${S}/.config'
 
-        echo 'CONFIG_LOCALVERSION=""' >>${S}/.config
+        echo 'CONFIG_LOCALVERSION="${LOCALVERSION}"' >>${S}/.config
         echo '# CONFIG_LOCALVERSION_AUTO is not set' >>${S}/.config
 
         #

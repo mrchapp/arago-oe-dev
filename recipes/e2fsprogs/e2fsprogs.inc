@@ -9,7 +9,7 @@ SRC_URI = "${SOURCEFORGE_MIRROR}/e2fsprogs/e2fsprogs-${PV}.tar.gz"
 
 S = "${WORKDIR}/e2fsprogs-${PV}"
 
-INC_PR = "r26"
+INC_PR = "r29"
 
 inherit autotools
 
@@ -28,10 +28,9 @@ do_compile_prepend () {
 }
 
 do_install_append () {
-
     	oe_runmake install-libs DESTDIR=${D}
-	ln -sf ${D}/${base_sbindir}/tune2fs findfs
-	ln -sf ${D}/${base_sbindir}/tune2fs e2label
+	ln -sf tune2fs ${D}/${base_sbindir}/findfs
+	ln -sf tune2fs ${D}/${base_sbindir}/e2label
 }
 
 do_install_append_pn-e2fsprogs () {
@@ -43,15 +42,16 @@ do_install_append_pn-e2fsprogs () {
 	done
 	fsck=$(cd ${D}${base_sbindir}/ && ls -1 fsck.ext* | sed s/[^\.]*//)
 	for e in $fsck; do
-		rm ${D}${base_sbindir}/{fsck,mkfs}$e;
-		ln -s ${D}${base_sbindir}/e2fsck$e.${PN}$e fsck$e.${PN}
-		ln -s ${D}${base_sbindir}/mke2fs$e.${PN}$e mkfs$e.${PN}
+		rm ${D}${base_sbindir}/fsck$e
+		rm ${D}${base_sbindir}/mkfs$e
+		ln -sf e2fsck.${PN} ${D}${base_sbindir}/fsck$e.${PN}
+		ln -sf mke2fs.${PN} ${D}${base_sbindir}/mkfs$e.${PN}
 	done
 }
 
 
 pkg_postinst_e2fsprogs () {
-	update-alternatives --install ${base_bindir}/chattr chattr chattr.${PN} 100
+	update-alternatives --install ${bindir}/chattr chattr chattr.${PN} 100
 	update-alternatives --install ${base_sbindir}/uuidd uuidd uuidd.${PN} 10
 }
 
@@ -109,11 +109,14 @@ RDEPENDS_e2fsprogs = "util-linux-ng e2fsprogs-badblocks"
 FILES_${PN} += "${libdir}/e2initrd_helper"
 
 PACKAGES =+ "e2fsprogs-e2fsck e2fsprogs-mke2fs e2fsprogs-tune2fs e2fsprogs-badblocks libcomerr libss"
+PACKAGES =+ "libe2p libext2fs"
 FILES_e2fsprogs-e2fsck = "${base_sbindir}/e2fsck.${PN} ${base_sbindir}/fsck.ext*.${PN}"
 FILES_e2fsprogs-mke2fs = "${base_sbindir}/mke2fs.${PN} ${base_sbindir}/mkfs.ext*.${PN}"
 FILES_e2fsprogs-tune2fs = "${base_sbindir}/tune2fs ${base_sbindir}/e2label ${base_sbindir}/findfs"
 FILES_e2fsprogs-badblocks = "${base_sbindir}/badblocks"
 FILES_libcomerr = "${libdir}/libcom_err.so.*"
 FILES_libss = "${libdir}/libss.so.*"
+FILES_libe2p = "${libdir}/libe2p.so.*"
+FILES_libext2fs = "${libdir}/e2initrd_helper ${libdir}/libext2fs.so.*"
 
 BBCLASSEXTEND = "native"

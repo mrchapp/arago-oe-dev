@@ -6,7 +6,7 @@
 
 # Base line versions, good for most things
 PREFERRED_GCC_VERSION                ?= "4.5"
-PREFERRED_BINUTILS_VERSION           ?= "2.20.1"
+PREFERRED_BINUTILS_VERSION           ?= "2.21"
 PREFERRED_UCLIBC_VERSION             ?= "git"
 PREFERRED_EGLIBC_VERSION             ?= "2.12"
 PREFERRED_GLIBC_VERSION              ?= "2.10.1"
@@ -27,8 +27,6 @@ PREFERRED_VERSION_eglibc-initial     ?= "${PREFERRED_EGLIBC_VERSION}"
 PREFERRED_GCC_VERSION_486sx          ?= "4.3.2"
 PREFERRED_GCC_VERSION_avr32          ?= "4.2.2"
 PREFERRED_GCC_VERSION_bfin           ?= "4.1.2"
-PREFERRED_GCC_VERSION_sh3            ?= "4.4.4"
-PREFERRED_GCC_VERSION_sh4            ?= "4.4.4"
 PREFERRED_GCC_VERSION_xilinx-ml403   ?= "4.1.1"
 
 # This is unrelated to the kernel version, but glibc and some userspaceapps require a recent version to build against
@@ -72,10 +70,10 @@ TARGET_VENDOR = "-oe"
 TOOLCHAIN_TYPE ?= "internal"
 require conf/distro/include/toolchain-${TOOLCHAIN_TYPE}.inc
 
-# Add FEED_ARCH to the overrides list so that we can override the
+# Add BASE_PACKAGE_ARCH to the overrides list so that we can override the
 # ARM_INSTRUCTION_SET like below
 
-OVERRIDES .= ":${FEED_ARCH}"
+OVERRIDES =. "${BASE_PACKAGE_ARCH}:"
 
 # ARM920T and up can use thumb mode to decrease binary size at the expense of speed
 # (the complete story is a bit more nuanced due to cache starvation)

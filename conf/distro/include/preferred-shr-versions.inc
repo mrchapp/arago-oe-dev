@@ -1,7 +1,5 @@
 # Upgraded
 # use newer version then preferred by default
-PREFERRED_VERSION_dbus = "1.4.0"
-PREFERRED_VERSION_dbus-native = "1.4.0"
 PREFERRED_VERSION_libmikmod = "3.2.0-beta2"
 PREFERRED_VERSION_strace = "4.5.15"
 PREFERRED_VERSION_emacs-x11 = "23.1"
@@ -25,8 +23,10 @@ PREFERRED_VERSION_hal           = "0.5.13"
 PREFERRED_VERSION_wpa-supplicant = "0.6.9"
 PREFERRED_VERSION_glib-2.0      = "2.26.1"
 PREFERRED_VERSION_glib-2.0-native = "2.26.1"
-PREFERRED_VERSION_openssl = "1.0.0b"
-PREFERRED_VERSION_openssl-native = "1.0.0b"
+PREFERRED_VERSION_openssl = "1.0.0c"
+PREFERRED_VERSION_openssl-native = "1.0.0c"
+PREFERRED_VERSION_perl = "5.10.1"
+PREFERRED_VERSION_perl-native = "5.10.1"
 UDEV_GE_141 = "1"
 
 PREFERRED_VERSION_postgresql = "8.4.4"

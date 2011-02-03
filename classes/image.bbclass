@@ -31,6 +31,7 @@ IMAGE_BOOT ?= "${IMAGE_INITSCRIPTS} \
 
 # some default locales
 IMAGE_LINGUAS ?= "de-de fr-fr en-gb"
+IMAGE_LINGUAS[type] = "list"
 
 LINGUAS_INSTALL = ""
 LINGUAS_INSTALL_linux = "${@base_ifelse(d.getVar('IMAGE_LINGUAS', True), \
@@ -44,6 +45,7 @@ RDEPENDS += "${@' '.join(oe.packagegroup.active_packages('${IMAGE_FEATURES}'.spl
 
 
 IMAGE_FEATURES ?= ""
+IMAGE_FEATURES[type] = "list"
 IMAGE_FEATURES_prepend = "image_base "
 
 # Define our always included package group
@@ -85,6 +87,7 @@ do_rootfs[recrdeptask] += "do_deploy do_populate_sysroot"
 EXCLUDE_FROM_WORLD = "1"
 
 USE_DEVFS ?= "0"
+USE_DEVFS[type] = "boolean"
 
 PID = "${@os.getpid()}"
 
@@ -137,8 +140,7 @@ def get_imagecmds(d):
         cmd  = "\t#Code for image type " + type + "\n"
         cmd += "\t${IMAGE_CMD_" + type + "}\n"
         cmd += "\tcd ${DEPLOY_DIR_IMAGE}/\n"
-        cmd += "\trm -f ${DEPLOY_DIR_IMAGE}/${IMAGE_LINK_NAME}." + type + "\n"
-        cmd += "\tln -s ${IMAGE_NAME}.rootfs." + type + " ${DEPLOY_DIR_IMAGE}/${IMAGE_LINK_NAME}." + type + "\n\n"
+        cmd += "\tln -fs ${IMAGE_NAME}.rootfs." + type + " ${DEPLOY_DIR_IMAGE}/${IMAGE_LINK_NAME}." + type + "\n\n"
         cmds += bb.data.expand(cmd, localdata)
     return cmds
 

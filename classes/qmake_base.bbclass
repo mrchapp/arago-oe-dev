@@ -36,7 +36,7 @@ oe_qmake_mkspecs () {
 
 qmake_base_do_configure() {
 	case ${QMAKESPEC} in
-	*linux-oe-g++|*linux-uclibc-oe-g++|*linux-gnueabi-oe-g++|*linux-uclibceabi-oe-g++)
+	*linux-oe-g++|*linux-uclibc-oe-g++|*linux-gnueabi-oe-g++|*linux-uclibceabi-oe-g++|*linux-gnuspe-oe-g++|*linux-uclibcspe-oe-g++)
 		;;
 	*-oe-g++)
 		die Unsupported target ${TARGET_OS} for oe-g++ qmake spec
@@ -61,7 +61,7 @@ qmake_base_do_configure() {
 	oenote "using qmake spec in ${QMAKESPEC}, using profiles '${QMAKE_PROFILES}'"
 
 	if [ -z "${QMAKE_PROFILES}" ]; then 
-		PROFILES="`ls *.pro`"
+		PROFILES="`ls ${S}/*.pro`"
 	else
 		PROFILES="${QMAKE_PROFILES}"
 	fi

@@ -6,7 +6,7 @@ DEPENDS = "libmokosuite edje-native"
 SECTION = "misc/utils"
 
 PV = "1.0.99+gitr${SRCPV}"
-SRCREV = "c7126d6a754b58add0f76d1994a92e2be60705df"
+SRCREV = "a0c15a4a3919c9b5a612fad78a7de42507ecd14d"
 
 SRC_URI = "git://gitorious.org/mokosuite2/mokohome.git;protocol=git"
 S = "${WORKDIR}/git"

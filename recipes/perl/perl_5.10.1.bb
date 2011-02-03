@@ -5,13 +5,10 @@ LICENSE = "Artistic|GPLv1+"
 PRIORITY = "optional"
 # We need gnugrep (for -I)
 DEPENDS = "virtual/db perl-native grep-native"
-PR = "r14"
+PR = "r21"
 
 # 5.10.1 has Module::Build built-in
 PROVIDES += "libmodule-build-perl"
-
-# Not tested enough
-DEFAULT_PREFERENCE = "-1"
 
 # Major part of version
 PVM = "5.10"
@@ -62,6 +59,7 @@ SRC_URI = "ftp://ftp.funet.fi/pub/CPAN/src/perl-${PV}.tar.gz;name=perl-${PV} \
 	file://arm-alignment.diff \
 	file://fcgi-test.diff \
 	file://hurd-ccflags.diff \
+	file://perl-time-hires-fix-cross-compilation.patch \
 	\
         file://Makefile.patch \
         file://Makefile.SH.patch \
@@ -124,7 +122,7 @@ do_configure() {
         done
 
         # Fixups for uclibc
-        if [ "${TARGET_OS}" = "linux-uclibc" -o "${TARGET_OS}" = "linux-uclibceabi" ]; then
+        if [ "${TARGET_OS}" = "linux-uclibc" -o "${TARGET_OS}" = "linux-uclibceabi" -o "${TARGET_OS}" = "linux-uclibcspe" ]; then
                 sed -i -e "s,\(d_crypt_r=\)'define',\1'undef',g" \
                        -e "s,\(d_futimes=\)'define',\1'undef',g" \
                        -e "s,\(crypt_r_proto=\)'\w+',\1'0',g" \
@@ -147,6 +145,17 @@ do_configure() {
                -e "s%/usr/include/%${STAGING_INCDIR}/%g" \
 	       -e 's,/usr/,${exec_prefix}/,g' \
             config.sh-${TARGET_ARCH}-${TARGET_OS}
+
+	case "${TARGET_ARCH}" in
+		x86_64 | powerpc | s390)
+			sed -i -e "s,\(need_va_copy=\)'undef',\1'define',g" \
+				config.sh-${TARGET_ARCH}-${TARGET_OS}
+			;;
+		arm)
+			sed -i -e "s,\(d_u32align=\)'undef',\1'define',g" \
+				config.sh-${TARGET_ARCH}-${TARGET_OS}
+			;;
+	esac
 
         if test "${MACHINE}" != "native"; then
             # These are strewn all over the source tree
@@ -211,7 +220,14 @@ do_stage() {
         # target config, used by cpan.bbclass to extract version information
         install config.sh ${STAGING_LIBDIR}/perl/
         # target configuration, used by native perl when cross-compiling
-        install lib/Config_heavy.pl ${STAGING_LIBDIR_NATIVE}/perl/${PV}/Config_heavy-target.pl
+        install lib/Config_heavy.pl ${STAGING_LIBDIR_NATIVE}/perl/${PV}/Config_heavy-${TARGET_SYS}.pl
+	sed -r -i \
+		-e "s,^(archlib=).*$,\1'${STAGING_LIBDIR}/perl/${PV}'," \
+		-e "s,^(archlibexp=).*$,\1'${STAGING_LIBDIR}/perl/${PV}'," \
+		-e "s,^(privlib=).*$,\1'${STAGING_DATADIR}/perl/${PV}'," \
+		-e "s,^(privlibexp=).*$,\1'${STAGING_DATADIR}/perl/${PV}'," \
+		${STAGING_LIBDIR_NATIVE}/perl/${PV}/Config_heavy-${TARGET_SYS}.pl \
+		${STAGING_LIBDIR}/perl/config.sh
 	# target configuration
         install lib/Config.pm       ${STAGING_LIBDIR}/perl/${PV}/
 	install lib/ExtUtils/typemap ${STAGING_DATADIR}/perl/${PV}/ExtUtils/

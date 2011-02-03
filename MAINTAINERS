@@ -16,6 +16,16 @@ Recipes:    Maintained recipes (should match package names, can include wildcard
 
 -----------------------------------------------------------------------------
 
+Person:     Andrea Adami
+Mail:       andrea.adami@gmail.com
+Machines:   Zaurus family (direct testing only on c7x0 and spitz)
+Recipes:    zaurus-updater, zaurus-installer, nandlogical
+Recipes:    linux, linux-kexecboot (Zaurus kernels)
+Recipes:    kexecboot, kexec-tools, initramfs-kexecboot-image
+Recipes:    klibc, klcc-cross
+Classes:    klibc.bbclass
+Interests:  Early boot, initramfs, klibc-static binaries, kernel, sysadm, networking
+
 Person:     Andreas Holzer
 Mail:       a.holzer@cheese.at
 Website:    http://members.cheese.at/woody/zaurus/
@@ -38,14 +48,14 @@ Person:     Christopher Larson
 Mail:       clarson@kergoth.com
 Recipes:    autoconf, automake, libtool, gnu-config
 Recipes:    gzip, lzip, ed, genromfs, which, cwautomacros
-Recipes:    unifdef, termcap
+Recipes:    unifdef, termcap, editline, procinfo-ng
 Classes:    autotools.bbclass
 
 Person:     Cliff Brake
 Mail:       cbrake@bec-systems.com
 Website:    http://bec-systems.com
 Interests:  Support in OE for single board computers, web application support
-Machines:   cm-x270, em-x270, gesbc-9302
+Machines:   cm-x270, gesbc-9302
 Recipes:    mono, argtable, vala, socketcan, clearsilver
 
 Person:     Denys Dmytriyenko

@@ -23,7 +23,6 @@ PSTAGE_SCAN_CMD ?= "find ${PSTAGE_TMPDIR_STAGE} \( -name "*.la" -o -name "*-conf
 
 PSTAGE_NATIVEDEPENDS = "\
     shasum-native \
-    stagemanager-native \
     "
 
 BB_STAMP_WHITELIST = "${PSTAGE_NATIVEDEPENDS}"
@@ -75,10 +74,6 @@ python __anonymous() {
     # Add task dependencies if we're active, otherwise mark packaged staging
     # as inactive.
     if pstage_allowed:
-        deps = bb.data.getVarFlag('do_setscene', 'depends', d) or ""
-        deps += " stagemanager-native:do_populate_sysroot"
-        bb.data.setVarFlag('do_setscene', 'depends', deps, d)
-
         policy = bb.data.getVar("BB_STAMP_POLICY", d, True)
         if policy == "whitelist" or policy == "full":
            deps = bb.data.getVarFlag('do_setscene', 'recrdeptask', d) or ""
@@ -92,9 +87,9 @@ python __anonymous() {
 
 PSTAGE_MACHCONFIG   = "${PSTAGE_WORKDIR}/opkg.conf"
 
-PSTAGE_PKGMANAGER = "stage-manager-ipkg"
+PSTAGE_PKGMANAGER = "stage-manager-opkg"
 
-PSTAGE_BUILD_CMD        = "stage-manager-ipkg-build -o 0 -g 0"
+PSTAGE_BUILD_CMD        = "stage-manager-opkg-build -o 0 -g 0"
 PSTAGE_INSTALL_CMD      = "${PSTAGE_PKGMANAGER} -f ${PSTAGE_MACHCONFIG} -force-depends -o ${TMPDIR} install"
 PSTAGE_UPDATE_CMD       = "${PSTAGE_PKGMANAGER} -f ${PSTAGE_MACHCONFIG} -o ${TMPDIR} update"
 PSTAGE_REMOVE_CMD       = "${PSTAGE_PKGMANAGER} -f ${PSTAGE_MACHCONFIG} -force-depends -o ${TMPDIR} remove"
@@ -454,10 +449,13 @@ python do_package_stage () {
             pr = bb.data.getVar('PR_%s' % pkg, d, 1)
             if not pr:
                 pr = bb.data.getVar('PR', d, 1)
+            pkgv = bb.data.getVar('PKGV_%s' % pkg, d, 1)
+            if not pkgv:
+                pkgv = bb.data.getVar('PKGV', d, 1)
             if not oe.packagedata.packaged(pkg, d):
                 continue
             if bb.data.inherits_class('package_ipk', d):
-                srcname = bb.data.expand(pkgname + "_${PKGV}-" + pr + "${DISTRO_PR}" + "_" + arch + ".ipk", d)
+                srcname = bb.data.expand(pkgname + "_" + pkgv + "-" + pr + "${DISTRO_PR}" + "_" + arch + ".ipk", d)
                 srcfile = bb.data.expand("${DEPLOY_DIR_IPK}/" + arch + "/" + srcname, d)
                 if os.path.exists(srcfile):
                     destpath = ipkpath + "/" + arch + "/"

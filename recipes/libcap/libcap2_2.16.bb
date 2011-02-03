@@ -2,8 +2,8 @@ DESCRIPTION = "Libcap is a library for getting and setting POSIX.1e (formerly PO
 PRIORITY = "optional"
 SECTION = "libs"
 LICENSE = "GPL"
-DEPENDS = "bison-native flex-native attr"
-PR = "r1"
+DEPENDS = "bison-native flex-native attr ${@base_contains('DISTRO_FEATURES', 'pam', 'libpam', '', d)}"
+PR = "r3"
 
 BUILD_CFLAGS += "-I${S}/libcap/include"
 CFLAGS += "-I${S}/libcap/include"
@@ -15,8 +15,7 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/libs/security/linux-privs/libcap2/libca
 
 S = "${WORKDIR}/libcap-${PV}"
 
-FILES_${PN} = "${libdir}"
-FILES_${PN}-dev = "${includedir}"
+EXTRA_OEMAKE = "SYSTEM_HEADERS=${STAGING_INCDIR}"
 
 do_install() {
 	install -d ${D}${includedir}/sys

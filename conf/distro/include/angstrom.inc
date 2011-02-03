@@ -11,6 +11,9 @@ BUILDNAME = "Angstrom ${DISTRO_VERSION}"
 
 TARGET_VENDOR = "-angstrom"
 
+# Uncomment this to get a custom string appended to the target kernels uname
+#LOCALVERSION = "-Angstrom"
+
 SOC_FAMILY ?= "Unknown"
 
 # Add FEED_ARCH and SOC_FAMILY to overrides
@@ -60,7 +63,7 @@ THUMB_INTERWORK = "yes"
 
 
 #Use this variable in feeds and other parts that need a URI
-ANGSTROM_URI ?= "http://www.angstrom-distribution.org"
+ANGSTROM_URI ?= "http://feeds.angstrom-distribution.org"
 
 #Use this variable to select which recipe you want to use to get feed configs (/etc/ipkg/, /etc/apt/sources.list)
 # usefull for derivative distros and local testing
@@ -130,6 +133,7 @@ TARGET_FPU_ppc405 ?= "soft"
 TARGET_FPU_armv6 ?= "hard"
 TARGET_FPU_armv6-novfp ?= "soft"
 TARGET_FPU_armv7a ?= "hard"
+TARGET_FPU_armv7a-vfp ?= "hard"
 TARGET_FPU_ppc603e ?= "hard"
 
 # webkit-gtk and cairo have alignment issues with double instructions on armv5 so

@@ -11,7 +11,7 @@ LICENSE = "GPLv2"
 SECTION = "base"
 PRIORITY = "required"
 
-INC_PR = "r38"
+INC_PR = "r41"
 
 SRC_URI = "\
   file://busybox-cron \
@@ -23,6 +23,8 @@ SRC_URI = "\
   file://hwclock-default \
   file://ifupdown-spurious-environ.patch \
   file://mount.busybox \
+  file://passwd \
+  file://shadow \
   file://syslog \
   file://syslog.conf \
   file://udhcpscript.patch \
@@ -34,6 +36,7 @@ SRC_URI_append_nylon = " file://xargs-double-size.patch"
 export EXTRA_CFLAGS = "${CFLAGS}"
 EXTRA_OEMAKE_append = " CROSS=${HOST_PREFIX}"
 PACKAGES =+ "${PN}-mountall ${PN}-httpd ${PN}-syslog ${PN}-udhcpd"
+PACKAGES =+ "${PN}-passwd ${PN}-shadow"
 
 # We need this RRECOMMENDS_${PN} because libc dlopens libgcc
 # and shlib mechanism can not detect it because its not
@@ -47,7 +50,10 @@ RDEPENDS_${PN} += "${PN}-mountall"
 RRECOMMENDS_${PN} += "libgcc ${PN}-syslog"
 
 FILES_${PN}-httpd = "${sysconfdir}/init.d/busybox-httpd /srv/www"
-FILES_${PN}-syslog = "${sysconfdir}/init.d/syslog.${PN} ${sysconfdir}/syslog.conf"
+FILES_${PN}-passwd = "${sysconfdir}/passwd.${PN}"
+FILES_${PN}-shadow = "${sysconfdir}/shadow.${PN}"
+FILES_${PN}-syslog = "${sysconfdir}/init.d/syslog.${PN} \
+                      ${sysconfdir}/default/busybox-syslog"
 FILES_${PN}-udhcpd = "${sysconfdir}/init.d/busybox-udhcpd"
 
 FILES_${PN} += "${datadir}/udhcpc"
@@ -58,12 +64,14 @@ INITSCRIPT_PACKAGES = "${PN}-httpd ${PN}-udhcpd"
 INITSCRIPT_NAME_${PN}-httpd = "busybox-httpd"
 INITSCRIPT_NAME_${PN}-syslog = "syslog"
 INITSCRIPT_NAME_${PN}-udhcpd = "busybox-udhcpd"
-CONFFILES_${PN}-syslog = "${sysconfdir}/syslog.conf"
+CONFFILES_${PN}-syslog = "${sysconfdir}/default/busybox-syslog"
 
 # This disables the syslog startup links in slugos (see slugos-init)
 INITSCRIPT_PARAMS_${PN}-syslog_slugos = "start 20 ."
 
 RDEPENDS_${PN}-httpd += "${PN}"
+RDEPENDS_${PN}-passwd += "${PN}"
+RDEPENDS_${PN}-shadow += "${PN}-passwd"
 RDEPENDS_${PN}-syslog += "${PN}"
 RDEPENDS_${PN}-udhcpd += "${PN}"
 
@@ -97,9 +105,11 @@ python () {
                  d)
 }
 
-do_configure () {
+do_prepare_config () {
 	sed -e 's#@DATADIR@#${datadir}#g' \
 		< ${WORKDIR}/defconfig > ${S}/.config
+	sed -i -e '/CONFIG_STATIC/d' .config
+	echo "# CONFIG_STATIC is not set" >> .config
 	for i in 'CROSS' 'DISTRO FEATURES'; do echo "### $i"; done >> \
 		${S}/.config
 	sed -i -e '${configmangle}' ${S}/.config
@@ -112,6 +122,15 @@ do_configure () {
 	  {if(net==2&&$0 !~ /^#/&&$1){print("# "$1" is not set")}else{print}}' \
 		  ${S}/.config.oe-tmp > ${S}/.config
 	fi
+}
+
+do_prepare_config_append_pn-busybox-static() {
+	sed -i -e '/CONFIG_STATIC/d' .config
+	echo "CONFIG_STATIC=y" >>.config
+}
+
+do_configure () {
+	do_prepare_config
 	cml1_do_configure
 }
 
@@ -166,9 +185,19 @@ do_install () {
 		fi
 	fi
 
+	if grep -q "CONFIG_PASSWD=y" ${WORKDIR}/defconfig; then
+	    install -m 0644 ${WORKDIR}/passwd ${D}${sysconfdir}/passwd.${PN}
+	    if grep -q "CONFIG_FEATURE_SHADOWPASSWDS=y" ${WORKDIR}/defconfig; then
+	        install -m 0640 ${WORKDIR}/shadow ${D}${sysconfdir}/shadow.${PN}
+            fi
+	fi
 	if grep -q "CONFIG_SYSLOGD=y" ${WORKDIR}/defconfig; then
 		install -m 0755 ${WORKDIR}/syslog ${D}${sysconfdir}/init.d/syslog.${PN}
-		install -m 644 ${WORKDIR}/syslog.conf ${D}${sysconfdir}/
+	        sed -i -e 's,/etc/default/busybox-syslog,${sysconfdir}/default/busybox-syslog,' \
+	            ${D}${sysconfdir}/init.d/syslog.${PN}
+
+		install -d ${D}${sysconfdir}/default
+		install -m 644 ${WORKDIR}/syslog.conf ${D}${sysconfdir}/default/busybox-syslog
 	fi
 	if grep "CONFIG_CROND=y" ${WORKDIR}/defconfig; then
 		install -m 0755 ${WORKDIR}/busybox-cron ${D}${sysconfdir}/init.d/
@@ -249,14 +278,25 @@ pkg_prerm_${PN}-mountall () {
 	update-alternatives --remove default_mountall mountall.${PN}
 }
 
+pkg_postinst_${PN}-passwd () {
+	update-alternatives --install ${sysconfdir}/passwd default_passwd passwd.${PN} 50
+}
+pkg_prerm_${PN}-passwd () {
+	update-alternatives --remove default_passwd passwd.${PN}
+}
+
+pkg_postinst_${PN}-shadow () {
+	update-alternatives --install ${sysconfdir}/shadow default_shadow shadow.${PN} 50
+}
+pkg_prerm_${PN}-shadow () {
+	update-alternatives --remove default_shadow shadow.${PN}
+}
+
+
 pkg_postinst_${PN}-syslog () {
 	update-alternatives --install ${sysconfdir}/init.d/syslog syslog-init syslog.${PN} 50
 
-	if test "x$D" != "x"; then
-		OPT="-r $D"
-	else
-		OPT="-s"
-	fi
+	[ -n "$D" ] && OPT="-r $D" || OPT="-s"
 	# remove all rc.d-links potentially created from alternative
 	# syslog packages before creating new ones
 	update-rc.d $OPT -f syslog remove
@@ -274,13 +314,9 @@ pkg_prerm_${PN}-syslog () {
 }
 
 pkg_postrm_${PN}-syslog () {
-	if test "x$D" != "x"; then
-		OPT="-r $D"
-	else
-		OPT=""
-	fi
 	if test "$1" = "remove" -o "$1" = "purge"; then
 		if ! test -e "/etc/init.d/syslog"; then
+			[ -n "$D" ] && OPT="-r $D" || OPT="-s"
 			update-rc.d $OPT syslog remove
 		fi
 	fi
@@ -322,16 +358,16 @@ PACKAGES =+ "${PN}-mdev"
 FILES_${PN}-mdev = "${sysconfdir}/mdev ${sysconfdir}/mdev.conf ${sysconfdir}/init.d/mdev"
 RDEPENDS_${PN}-mdev += "${PN}"
 
+pkg_postinst_${PN}-mdev() {
+	[ -n "$D" ] && OPT="-r $D" || OPT="-s"
+	update-rc.d $OPT mdev start 06 S .
+}
+pkg_postrm_${PN}-mdev() {
+	[ -n "$D" ] && OPT="-r $D" || OPT="-s"
+	update-rc.d $OPT -f mdev remove
+}
+
 PACKAGES =+ "${PN}-linuxrc"
 FILES_${PN}-linuxrc = "linuxrc"
 RDEPENDS_${PN}-linuxrc += "${PN}"
-
-pkg_postinst_${PN}-mdev() {
-if test "x$D" != "x"; then
-	OPT="-r $D"
-else
-	OPT="-s"
-fi
-	update-rc.d $OPT mdev start 06 S .
-}
 

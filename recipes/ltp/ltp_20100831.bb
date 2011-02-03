@@ -8,14 +8,15 @@ PR = "r0"
 inherit autotools
 
 SRC_URI = "${SOURCEFORGE_MIRROR}/ltp/ltp-full-${PV}.tgz \
-	  file://runalltests.patch;patch=1 "
+	   file://runalltests.patch \
+	  "
 
 S = "${WORKDIR}/ltp-full-${PV}"
 
 EXTRA_OEMAKE_append = " CROSS_COMPILE=${HOST_PREFIX} SKIP_IDCHECK=1"
 
-FILES_${PN}-dbg = "/usr/.debug"
-FILES_${PN}-dbg = "/usr/bin/.debug"
+FILES_${PN}-dbg += "/usr/.debug"
+FILES_${PN}-dbg += "/usr/bin/.debug"
 FILES_${PN}-dbg += "/usr/runtest/.debug"
 FILES_${PN}-dbg += "/usr/testcases/bin/.debug"
 FILES_${PN}-dbg += "/usr/testcases/bin/*/bin/.debug"

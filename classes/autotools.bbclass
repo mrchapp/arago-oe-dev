@@ -65,6 +65,22 @@ def append_libtool_sysroot(d):
 			return '--with-libtool-sysroot=${STAGING_DIR_HOST}'
 	return ''
 
+def distro_imposed_configure_flags(d):
+	distro_features = bb.data.getVar('DISTRO_FEATURES', d, True) or ""
+	distro_features = distro_features.split()
+	flags = set()
+	features = (('largefile', 'largefile'),
+		('ipv6'     , 'ipv6'),
+		('nls'      , 'nls'))
+
+	for knob, cfgargs in features:
+		if isinstance(cfgargs, basestring):
+			cfgargs = [cfgargs]
+		en_or_dis = knob in distro_features and "enable" or "disable"
+		for flg in cfgargs:
+			flags.add("--%s-%s" % (en_or_dis, flg))
+	return " ".join(flags)
+
 # EXTRA_OECONF_append = "${@autotools_set_crosscompiling(d)}"
 
 CONFIGUREOPTS = " --build=${BUILD_SYS} \
@@ -85,6 +101,7 @@ CONFIGUREOPTS = " --build=${BUILD_SYS} \
 		  --infodir=${infodir} \
 		  --mandir=${mandir} \
 		  ${@append_libtool_sysroot(d)} \
+		  ${@distro_imposed_configure_flags(d)} \
 		"
 
 oe_runconf () {
@@ -143,14 +160,14 @@ autotools_do_configure() {
 			else
 			  CONFIGURE_AC=configure.ac
 			fi
-			if grep "^[[:space:]]*AM_GLIB_GNU_GETTEXT" $CONFIGURE_AC >/dev/null; then
-			  if grep "sed.*POTFILES" $CONFIGURE_AC >/dev/null; then
+			if grep -q "^[[:space:]]*AM_GLIB_GNU_GETTEXT" $CONFIGURE_AC; then
+			  if grep -q "sed.*POTFILES" $CONFIGURE_AC; then
 			    : do nothing -- we still have an old unmodified configure.ac
 			  else
 			    oenote Executing glib-gettextize --force --copy
 			    echo "no" | glib-gettextize --force --copy
 			  fi
-			else if grep "^[[:space:]]*AM_GNU_GETTEXT" $CONFIGURE_AC >/dev/null; then
+			else if grep -q "^[[:space:]]*AM_GNU_GETTEXT" $CONFIGURE_AC; then
 			  if [ -e ${STAGING_DATADIR}/gettext/config.rpath ]; then
 			    cp ${STAGING_DATADIR}/gettext/config.rpath ${S}/
 			  else
@@ -159,10 +176,12 @@ autotools_do_configure() {
 			fi
 
 			fi
-			mkdir -p m4
+			for aux in m4 `sed -n -e '/^[[:space:]]*AC_CONFIG_MACRO_DIR/s|[^(]*([[]*\([^])]*\)[]]*)|\1|p' $CONFIGURE_AC`; do
+				mkdir -p ${aux}
+			done
 			oenote Executing autoreconf --verbose --install --force ${EXTRA_AUTORECONF} $acpaths
 			autoreconf -Wcross --verbose --install --force ${EXTRA_AUTORECONF} $acpaths || oefatal "autoreconf execution failed."
-			if grep "^[[:space:]]*[AI][CT]_PROG_INTLTOOL" $CONFIGURE_AC >/dev/null; then
+			if grep -q "^[[:space:]]*[AI][CT]_PROG_INTLTOOL" $CONFIGURE_AC; then
 			  oenote Executing intltoolize --copy --force --automake
 			  intltoolize --copy --force --automake
 			fi

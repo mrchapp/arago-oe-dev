@@ -10,7 +10,7 @@ DEPENDS = "glib-2.0-native gtk-doc zlib"
 DEPENDS_virtclass-native = "gettext-native gtk-doc-native \
                             pkgconfig-native"
 
-PR = "r0"
+PR = "r3"
 
 SRC_URI = "\
   http://ftp.gnome.org/pub/GNOME/sources/glib/2.26/glib-${PV}.tar.bz2;name=archive \
@@ -20,6 +20,8 @@ SRC_URI = "\
   file://gatomic-proper-pointer-get-cast.patch \
   file://60_wait-longer-for-threads-to-die.patch \
   file://glib-mkenums-interpreter.patch \
+  file://libglib2-fix-compilation-with-no-builtin-atomic.patch \
+  file://configure-ipv6.patch \
 "
 
 SRC_URI[archive.md5sum] = "17535accceef55bcb17a74d73f9c2aef"
@@ -29,8 +31,6 @@ inherit autotools gettext
 
 S = "${WORKDIR}/glib-${PV}"
 
-DEFAULT_PREFERENCE = "-1"
-
 EXTRA_OECONF = "--disable-debug "
 
 # Add and entry for your favourite arch if your (g)libc has a sane printf
@@ -38,6 +38,7 @@ EXTRA_OECONF_append_glibc_arm = "  --enable-included-printf=no "
 
 do_configure_prepend () {
 	install -m 0644 ${WORKDIR}/glibconfig-sysdefs.h .
+	sed -i -e "s:TEST_PROGS += gdbus-serialization::g"  ${S}/gio/tests/Makefile.am
 }
 
 do_install_append() {
