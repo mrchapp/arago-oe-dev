@@ -13,8 +13,11 @@ SRC_URI = "\
   file://busybox-httpd \
   file://busybox-udhcpd \
   file://default.script file://simple.script \
+  file://group \
   file://hwclock.sh \
   file://hwclock-default \
+  file://inetd \
+  file://inetd.conf \
   file://mount.busybox \
   file://mountall \
   file://passwd \
