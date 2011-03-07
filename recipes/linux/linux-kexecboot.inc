@@ -1,5 +1,5 @@
 # We set INC_PR here, since a change in the kexecboot recipe will need to get picked up by *all* the kernels:
-INC_PR = "r32"
+INC_PR = "r34"
 
 inherit kernel siteinfo
 
@@ -153,9 +153,9 @@ do_configure_prepend() {
                ${S}/.config
 
                echo '${KERNEL_COMPRESSION}' >>${S}/.config
-               echo '"${INITRAMFS_COMPRESSION}"' >>${S}/.config
+               echo '${INITRAMFS_COMPRESSION}' >>${S}/.config
                echo 'CONFIG_INITRAMFS_SOURCE="initramfs.cpio.${INITRAMFS_COMPRESSION_SUFFIX}"' >>${S}/.config
-               echo '"${RD_COMPRESSION}"' >>${S}/.config
+               echo '${RD_COMPRESSION}' >>${S}/.config
         fi
 
         yes '' | oe_runmake oldconfig
@@ -173,6 +173,8 @@ python do_package() {
 
 # With 2.6.37 mips has no uImage target upstream.
 # use custom task in the meantime
+
+DEPENDS_mipsel += "u-boot-mkimage-native"
 
 do_uboot_mkimage_mipsel() {
         cd ${S}
