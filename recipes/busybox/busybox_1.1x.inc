@@ -5,6 +5,7 @@ SRC_URI = "\
   file://fdisk_nios2.patch \
   file://udhcpscript.patch \
   file://udhcpc-fix-nfsroot.patch \
+  file://udhcpc-new-nfsroot.patch \
   file://B921600.patch \
   file://get_header_tar.patch \
   file://busybox-appletlib-dependency.patch \
@@ -13,6 +14,7 @@ SRC_URI = "\
   file://busybox-httpd \
   file://busybox-udhcpd \
   file://default.script file://simple.script \
+  file://group \
   file://hwclock.sh \
   file://hwclock-default \
   file://inetd \

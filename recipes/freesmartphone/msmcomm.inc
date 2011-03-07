@@ -6,6 +6,6 @@ LICENSE = "GPL"
 INC_PR = "r4"
 PV = "Please override!"
 
-SRCREV = "1e78c074a855181336912d06a5793d8171bd7039"
+SRCREV = "aa49ff741f30df8e0360acef6798aa95856b20bc"
 SRC_URI = "${FREESMARTPHONE_GIT}/msmcomm.git;protocol=git;branch=master"
 

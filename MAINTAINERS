@@ -79,6 +79,12 @@ Machines:   h3600, h5400
 Interests:  Kernels, Porting, Distro refinement
 Recipes:    at76c503a, handhelds-sa, handhelds-pxa
 
+Person:     Filip Zyzniewski
+Mail:       filip.zyzniewski@gmail.com
+Distros:    jlime
+Machines:   jornada720, jornada729
+Interests:  Kernels, Distro refinement
+
 Person:     Florian Boor
 Mail:       fb@kernelconcepts.de
 Website:    http://fl0rian.wordpress.com, http://www.kernelconcepts.de/~fuchs/
@@ -131,6 +137,11 @@ Machines:   titan, wrap
 Recipes:    quagga, iputils, ndic6, hping2, lilo-sh, conserver, ipsec-tools,
 Recipes:    lilo-sh, clamav, havp, p3scan, clamsmtp, librsync, rdiff-backup,
 Recipes:    net-snmp, ebtables, ethtool, arpwatch, lib*-perl
+
+Person:     Jan Kobler
+Mail:       eng1@koblersystems.de
+Interests:  embedded systems, powerpc, arm
+Machines:   pcm043
 
 Person:     Jan Luebbe
 Mail:       jluebbe@lasnet.de
