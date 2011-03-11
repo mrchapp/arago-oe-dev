@@ -1,4 +1,4 @@
-DESCRIPTION = "Library for easy-accessing the 3d comapss HMC5843 from Honeywell "
+DESCRIPTION = "Library for easy-accessing the sensors supported by sensmon"
 AUTHOR = "Michele Brocco <ssj2micvm@gmail.com>"
 PRIORITY = "optional"
 LICENSE = "GPLv3"
@@ -8,9 +8,9 @@ RSUGGESTS_${PN} = ""
 PV = "0.1+gitr${SRCPV}"
 PR = "r1"
 
-SRC_URI = "git://gitorious.org/sensor-monitor/libhmc5843.git;protocol=git;branch=master"
+SRC_URI = "git://gitorious.org/sensor-monitor/libsensmon.git;protocol=git;branch=master"
 
-SRCREV = "9cdf5141ad050c87630fe28684dbb13d93aeca46"
+SRCREV = "1e986a6d84d4a63ffa85a049bdfced00bad8d97a"
 S = "${WORKDIR}/git"
 
 inherit autotools vala

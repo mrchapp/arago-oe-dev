@@ -14,7 +14,7 @@ inherit autotools
 
 BBCLASSEXTEND = "native"
 
-PR = "r3"
+PR = "r5"
 
 # We don't want to reconfigure things
 do_configure() {
