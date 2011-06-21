@@ -35,8 +35,8 @@ export LD="${CC}"
 do_configure () {
     ./Configure \
         -Dcc="${CC}" \
-        -Dcflags="${CFLAGS}" \
-        -Dldflags="${LDFLAGS}" \
+        -Dcflags="${CFLAGS} -lpthread -lm" \
+        -Dldflags="${LDFLAGS} -lpthread -lm" \
         -Dcf_by="Open Embedded" \
         \
         -Dprefix=${prefix} \
