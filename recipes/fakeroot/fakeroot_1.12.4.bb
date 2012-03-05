@@ -2,10 +2,11 @@ DESCRIPTION = "Gives a fake root environment"
 HOMEPAGE = "http://fakeroot.alioth.debian.org"
 SECTION = "base"
 LICENSE = "GPL"
-PR = "r2"
+PR = "r3"
 
+# fakeroot 1.12.4 is only in debian-snapshot archive - redefine SRC_URI
 SRC_URI = "\
-  ${DEBIAN_MIRROR}/main/f/fakeroot/fakeroot_${PV}.tar.gz \
+  http://snapshot.debian.org/archive/debian/20110331/pool/main/f/fakeroot/fakeroot_${PV}.tar.gz \
   file://configure-libtool.patch \
 "
 	    
