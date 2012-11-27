@@ -21,18 +21,32 @@ S = "${WORKDIR}/qt-everywhere-opensource-src-${PV}"
 
 # FIXME: make it work with "${STAGING_BINDIR_NATIVE}/pkg-config --cflags dbus-1"
 EXTRA_OECONF = "-prefix ${prefix} \
-                -qt-libjpeg -qt-gif -system-zlib \
+		-qt-libjpeg -qt-gif -system-zlib -system-libtiff \
+                -system-libmng \
                 -no-libjpeg -no-libpng \
                 -no-accessibility \
                 -no-cups \
                 -no-exceptions  \
                 -no-nas-sound \
                 -no-nis \
+                -no-sql-db2 \
+                -no-sql-ibase \
+                -no-sql-mysql \
+                -no-sql-oci \
+                -no-sql-odbc \
+                -no-sql-psql \
+                -no-sql-sqlite \
+                -no-sql-sqlite2 \
+                -no-sql-tds \
+                -no-stl \
                 -verbose -release -fast -static \
                 -qt3support \
+                -L${STAGING_DIR_NATIVE}/usr/lib \
                 -I${STAGING_DIR_NATIVE}/usr/include \
                 -I${STAGING_DIR_NATIVE}/usr/include/dbus-1.0 \
+                -I${STAGING_DIR_NATIVE}/usr/include/freetype2 \
                 -I${STAGING_DIR_NATIVE}/usr/lib/dbus-1.0/include"
+
 
 # yank default -e, otherwise we get the following error:
 # moc_qbuffer.cpp: No such file or directory
